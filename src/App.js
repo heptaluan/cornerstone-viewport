@@ -1,9 +1,11 @@
-import './App.css'
+import React from 'react'
+import Router from './router'
+import './assets/scss/reset.scss'
 
-function App() {
+const App = () => {
   return (
     <div className="App">
-      123
+      <Router />
     </div>
   )
 }
