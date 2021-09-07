@@ -1,0 +1,33 @@
+.left-side-panel-box {
+  flex: 1;
+  max-width: 250px;
+  height: 100%;
+  padding: 15px 0;
+
+  .list-item {
+    width: 210px;
+    height: auto;
+    margin: 0 auto 30px;
+    cursor: pointer;
+
+    .list-cover {
+      width: 210px;
+      height: 135px;
+      border-radius: 12px;
+      box-shadow: inset 0 0 0 1px #3c5d80;
+
+      img {
+        border-radius: 12px;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+    }
+
+    .list-content {
+      margin-top: 5px;
+      font-size: 16px;
+    }
+  }
+}

@@ -1,0 +1,40 @@
+.right-side-panel-box {
+  flex: 1;
+  max-width: 450px;
+  height: 100%;
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+
+  .list-table {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .list-viewer {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0 10px;
+
+    .viewer-item {
+      margin: 10px 0;
+    }
+  }
+
+  .list-suggest {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .list-item {
+    margin-bottom: 10px;
+    padding: 0 5px;
+
+    .title {
+      height: 20px;
+      line-height: 20px;
+    }
+
+    
+  }
+}
