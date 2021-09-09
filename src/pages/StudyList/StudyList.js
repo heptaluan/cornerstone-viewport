@@ -107,7 +107,7 @@ const StudyList = () => {
         columns={columns}
         onRow={record => {
           return {
-            onClick: event => {
+            onDoubleClick: event => {
               history.push(`/viewer/${record.id}`)
             },
           }

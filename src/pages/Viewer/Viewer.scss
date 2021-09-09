@@ -5,7 +5,7 @@
   .viewer-center-box {
     display: flex;
     flex: 1;
-    height: 100%;
+    height: calc(100% - 80px);
     flex-flow: row nowrap;
     align-items: stretch;
   }

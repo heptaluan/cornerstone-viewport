@@ -8,16 +8,16 @@ const ViewerMain = () => {
   const [state, setstate] = useState({
     tools: [
       // Mouse
-      // {
-      //   name: 'Wwwc',
-      //   mode: 'active',
-      //   modeOptions: { mouseButtonMask: 1 },
-      // },
       {
-        name: 'RectangleRoi',
+        name: 'Wwwc',
         mode: 'active',
         modeOptions: { mouseButtonMask: 1 },
       },
+      // {
+      //   name: 'RectangleRoi',
+      //   mode: 'active',
+      //   modeOptions: { mouseButtonMask: 1 },
+      // },
       {
         name: 'Zoom',
         mode: 'active',
