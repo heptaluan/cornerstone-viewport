@@ -26,6 +26,7 @@
       height: 25px;
       line-height: 25px;
       text-align: center;
+      border: 1px solid transparent;
       
       .icon, .more {
         display: flex;
@@ -58,6 +59,13 @@
         height: 25px;
         line-height: 25px;
         text-align: center;
+        border: 1px solid transparent;
+        transition: all .1s;
+
+        &:hover {
+          border: 1px solid #ccc;
+          background: #f8f8f8;
+        }
       }
 
       .icon,
