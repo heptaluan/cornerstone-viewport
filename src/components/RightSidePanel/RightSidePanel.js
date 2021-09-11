@@ -4,6 +4,7 @@ import IconFont from '../common/IconFont/index'
 import { Popover, Checkbox } from 'antd'
 
 const RightSidePanel = () => {
+  
   const noduleList = [
     {
       id: 1,
