@@ -53,8 +53,10 @@
       flex-direction: column;
       overflow-x: hidden;
       overflow-y: overlay;
+      min-height: 260px;
 
       .table-item {
+        user-select: none;
         display: flex;
         height: 25px;
         line-height: 25px;
@@ -62,9 +64,14 @@
         border: 1px solid transparent;
         transition: all .1s;
 
+        &.item-active {
+          border: 1px solid #ccc;
+          background: #eaeaea;
+        }
+
         &:hover {
           border: 1px solid #ccc;
-          background: #f8f8f8;
+          background: #eaeaea;
         }
       }
 
@@ -117,11 +124,24 @@
           flex: 1 1 1px;
           overflow-y: overlay;
           word-break: break-all;
-          padding: 10px 0;
+          padding: 5px 18px 0 5px;
 
           .viewer-item {
             margin-bottom: 8px;
-            padding: 1px 17px 0 10px;
+            padding: 5px;
+            border: 1px solid transparent;
+            transition: all .1s;
+            cursor: default;
+
+            &.item-active {
+              border: 1px solid #ccc;
+              background: #eaeaea;
+            }
+
+            &:hover {
+              border: 1px solid #ccc;
+              background: #eaeaea;
+            }
 
             &:last-child {
               margin-bottom: 0;

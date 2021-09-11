@@ -12,6 +12,9 @@ const RightSidePanel = () => {
       type: '肺内实性',
       risk: '17%',
       soak: 'AAH',
+      text: '于右肺上叶影像可见一结节，大小约 1111111111111111111111。',
+      checked: true,
+      active: true,
     },
     {
       id: 2,
@@ -20,6 +23,9 @@ const RightSidePanel = () => {
       type: '肺内实性',
       risk: '17%',
       soak: 'AAH',
+      text: '于右肺上叶影像可见一结节，大小约 2222222222',
+      checked: true,
+      active: false,
     },
     {
       id: 3,
@@ -28,6 +34,9 @@ const RightSidePanel = () => {
       type: '肺内实性',
       risk: '17%',
       soak: 'AAH',
+      text: '于右肺上叶影像可见一结节，大小约 3333333',
+      checked: true,
+      active: false,
     },
     {
       id: 4,
@@ -36,6 +45,9 @@ const RightSidePanel = () => {
       type: '肺内实性',
       risk: '17%',
       soak: 'AAH',
+      text: '于右肺上叶影像可见一结节，大小约 4444444。',
+      checked: true,
+      active: false,
     },
     {
       id: 5,
@@ -44,6 +56,9 @@ const RightSidePanel = () => {
       type: '肺内实性',
       risk: '17%',
       soak: 'AAH',
+      text: '于右肺上叶影像可见一结节，大小约 5555555。',
+      checked: true,
+      active: false,
     },
     {
       id: 6,
@@ -52,6 +67,9 @@ const RightSidePanel = () => {
       type: '肺内实性',
       risk: '17%',
       soak: 'AAH',
+      text: '于右肺上叶影像可见一结节，大小约 6666666666',
+      checked: true,
+      active: false,
     },
     {
       id: 7,
@@ -60,6 +78,9 @@ const RightSidePanel = () => {
       type: '肺内实性',
       risk: '17%',
       soak: 'AAH',
+      text: '于右肺上叶影像可见一结节，大小约 7777777777777777',
+      checked: true,
+      active: false,
     },
     {
       id: 8,
@@ -68,6 +89,9 @@ const RightSidePanel = () => {
       type: '肺内实性',
       risk: '17%',
       soak: 'AAH',
+      text: '于右肺上叶影像可见一结节，大小约 8888888888888888888',
+      checked: true,
+      active: false,
     },
     {
       id: 9,
@@ -76,6 +100,9 @@ const RightSidePanel = () => {
       type: '肺内实性',
       risk: '17%',
       soak: 'AAH',
+      text: '于右肺上叶影像可见一结节，大小约 99999999999999999999',
+      checked: true,
+      active: false,
     },
     {
       id: 10,
@@ -84,6 +111,9 @@ const RightSidePanel = () => {
       type: '肺内实性',
       risk: '17%',
       soak: 'AAH',
+      text: '于右肺上叶影像可见一结节，大小约 ～～～～～～～～～～～～～～',
+      checked: true,
+      active: false,
     },
     {
       id: 11,
@@ -92,6 +122,9 @@ const RightSidePanel = () => {
       type: '肺内实性',
       risk: '17%',
       soak: 'AAH',
+      text: '于右肺上叶影像可见一结节，大小约 ！！！！！！！！！！！！。',
+      checked: true,
+      active: false,
     },
     {
       id: 12,
@@ -100,19 +133,21 @@ const RightSidePanel = () => {
       type: '肺内实性',
       risk: '17%',
       soak: 'AAH',
+      text: '于右肺上叶影像可见一结节，大小约 @@@@@@@@@@@@@@',
+      checked: true,
+      active: false,
     },
   ]
 
   // 多选
-  const [checkedList, setCheckedList] = useState(Array(12).fill(true))
+  const [checkedList, setCheckedList] = useState(noduleList)
   const [indeterminate, setIndeterminate] = useState(false)
   const [checkAll, setCheckAll] = useState(true)
 
   const onChange = (e, index) => {
-    const newArr = checkedList.slice(0)
-    newArr[index] = e.target.checked
-    setCheckedList(newArr)
-    if (newArr.every(item => item === true)) {
+    checkedList[index].checked = e.target.checked
+    setCheckedList(checkedList)
+    if (checkedList.every(item => item.checked === true)) {
       setIndeterminate(false)
       setCheckAll(true)
     } else {
@@ -124,9 +159,11 @@ const RightSidePanel = () => {
   const onCheckAllChange = e => {
     setCheckAll(e.target.checked)
     if (e.target.checked) {
-      setCheckedList(Array(12).fill(true))
+      checkedList.map(item => (item.checked = true))
+      setCheckedList(checkedList)
     } else {
-      setCheckedList(Array(12).fill(false))
+      checkedList.map(item => (item.checked = false))
+      setCheckedList(checkedList)
     }
   }
 
@@ -151,7 +188,12 @@ const RightSidePanel = () => {
   }
 
   // 弹出层按钮事件
-  const handleHideNodule = () => {
+  const handleHideNodule = (e, id) => {
+    checkedList.splice(
+      checkedList.findIndex(item => item.id === id),
+      1
+    )
+    setCheckedList(checkedList)
     setShowPopover({
       visible: false,
       index: 0,
@@ -161,7 +203,7 @@ const RightSidePanel = () => {
   return (
     <div className="right-side-panel-box">
       <div className="nodule-list-box">
-        <div className="title">结点列表（5）</div>
+        <div className="title">结点列表（{checkedList.length}）</div>
         <div className="table-title">
           <div className="icon">
             <IconFont style={{ fontSize: '16px' }} type="icon-leimupinleifenleileibie" />
@@ -178,10 +220,10 @@ const RightSidePanel = () => {
           </div>
         </div>
         <div className="table-content">
-          {noduleList.map((item, index) => (
-            <div key={item.id} className="table-item">
+          {checkedList.map((item, index) => (
+            <div key={item.id} className={`table-item ${item.active ? 'item-active' : ''}`}>
               <div className="icon">{item.id}</div>
-              <Checkbox onChange={e => onChange(e, index)} checked={checkedList[index]}>
+              <Checkbox onChange={e => onChange(e, index)} checked={item.checked}>
                 <div className="num">{item.num}</div>
               </Checkbox>
               <div className="size">{item.size}</div>
@@ -195,10 +237,10 @@ const RightSidePanel = () => {
                   onVisibleChange={e => handleVisibleChange(e, index)}
                   content={
                     <div className="btn-group">
-                      <div onClick={handleHideNodule} className="button">
+                      <div onClick={e => handleHideNodule(e, item.id)} className="button">
                         隐藏结点
                       </div>
-                      <div onClick={handleHideNodule} className="button">
+                      <div onClick={e => handleHideNodule(e, item.id)} className="button">
                         标注
                       </div>
                     </div>
@@ -217,7 +259,15 @@ const RightSidePanel = () => {
         <div className="info-box">
           <div className="report-box">
             <div className="title">影像所见</div>
-            <div className="report-content">{/* <div className="viewer-item">于右肺上叶前段影像(MG21-23)可见一部分实性结节,大小约16.83mm大3.41mm,CT值约-52HU,体积1532mm3</div> */}</div>
+            <div className="report-content">
+              {checkedList.map((item, index) => {
+                return item.checked ? (
+                  <div key={item.id} className={`viewer-item ${item.active ? 'item-active' : ''}`}>
+                    {item.text}
+                  </div>
+                ) : null
+              })}
+            </div>
           </div>
           <div className="suggest-box">
             <div className="title">影像建议</div>
