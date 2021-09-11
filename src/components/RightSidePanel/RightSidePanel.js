@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import './RightSidePanel.scss'
 import IconFont from '../common/IconFont/index'
 import { Popover, Checkbox } from 'antd'
 
 const RightSidePanel = () => {
-  
+  // 暂定
+  const activeElement = useCallback(node => {
+    // console.log(node)
+  }, [])
+
   const noduleList = [
     {
       id: 1,
@@ -147,7 +151,7 @@ const RightSidePanel = () => {
 
   const onChange = (e, index) => {
     checkedList[index].checked = e.target.checked
-    setCheckedList(checkedList)
+    setCheckedList([...checkedList])
     if (checkedList.every(item => item.checked === true)) {
       setIndeterminate(false)
       setCheckAll(true)
@@ -161,10 +165,10 @@ const RightSidePanel = () => {
     setCheckAll(e.target.checked)
     if (e.target.checked) {
       checkedList.map(item => (item.checked = true))
-      setCheckedList(checkedList)
+      setCheckedList([...checkedList])
     } else {
       checkedList.map(item => (item.checked = false))
-      setCheckedList(checkedList)
+      setCheckedList([...checkedList])
     }
   }
 
@@ -194,7 +198,7 @@ const RightSidePanel = () => {
       checkedList.findIndex(item => item.id === id),
       1
     )
-    setCheckedList(checkedList)
+    setCheckedList([...checkedList])
     setShowPopover({
       visible: false,
       index: 0,
@@ -263,7 +267,7 @@ const RightSidePanel = () => {
             <div className="report-content">
               {checkedList.map((item, index) => {
                 return item.checked ? (
-                  <div key={item.id} className={`viewer-item ${item.active ? 'item-active' : ''}`}>
+                  <div key={item.id} ref={activeElement} className={`viewer-item ${item.active ? 'item-active' : ''}`}>
                     {item.text}
                   </div>
                 ) : null
