@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import CornerstoneViewport from 'react-cornerstone-viewport'
 import './ViewerMain.scss'
 import useWindowSize from '../../hook/useWindowSize'
+import Toolbar from '../../components/Toolbar/Toolbar'
 
 const ViewerMain = () => {
   const size = useWindowSize()
@@ -33,14 +34,18 @@ const ViewerMain = () => {
       { name: 'ZoomTouchPinch', mode: 'active' },
       { name: 'StackScrollMultiTouch', mode: 'active' },
     ],
-    imageIds: [
-      'wadouri:http://192.168.1.158:9000/medical.case.data/dicom/000001',
-    ],
+    imageIds: ['wadouri:http://192.168.1.158:9000/medical.case.data/dicom/000001'],
   })
+
+  const handleToolbarClick = (type, checked) => {
+    console.log(type)
+    console.log(checked)
+  }
 
   return (
     <div className="viewer-main-box">
-      <CornerstoneViewport tools={state.tools} imageIds={state.imageIds} style={{ minWidth: '100%', height: `${size.height - 80}px`, flex: '1' }} />
+      <Toolbar handleToolbarClick={handleToolbarClick} />
+      <CornerstoneViewport tools={state.tools} imageIds={state.imageIds} style={{ minWidth: '100%', height: `${size.height - 85}px`, flex: '1' }} />
     </div>
   )
 }

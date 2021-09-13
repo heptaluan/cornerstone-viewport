@@ -1,18 +1,18 @@
 import React from 'react'
 import './Viewer.scss'
-import Toolbar from '../../components/Toolbar/Toolbar'
+import Header from '../../components/Header/Header'
 import LeftSidePanel from '../../components/LeftSidePanel/LeftSidePanel'
 import ViewerMain from '../../components/ViewerMain/ViewerMain'
-import RightSidePanel from '../../components/RightSidePanel/RightSidePanel'
+import MiddleSidePanel from '../../components/MiddleSidePanel/MiddleSidePanel'
 
 const Viewer = () => {
   return (
     <div className="viewer-box">
-      <Toolbar />
+      <Header />
       <div className="viewer-center-box">
         <LeftSidePanel />
+        <MiddleSidePanel />
         <ViewerMain />
-        <RightSidePanel />
       </div>
     </div>
   )
