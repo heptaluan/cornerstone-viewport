@@ -5,12 +5,7 @@ import { Popover, Checkbox } from 'antd'
 import NoduleInfo from '../common/NoduleInfo/NoduleInfo'
 import { Button } from 'antd'
 
-const RightSidePanel = () => {
-  // 暂定
-  const activeElement = useCallback(node => {
-    // console.log(node)
-  }, [])
-
+const MiddleSidePanel = props => {
   const noduleList = [
     {
       id: 1,
@@ -144,6 +139,95 @@ const RightSidePanel = () => {
       checked: true,
       active: false,
     },
+
+    {
+      id: 13,
+      num: 132,
+      size: '12.35/6.49',
+      type: '肺内实性',
+      risk: '17%',
+      soak: 'AAH',
+      text: '于右肺上叶影像可见一结节，大小约 @@@@@@@@@@@@@@',
+      checked: true,
+      active: false,
+    },
+    {
+      id: 14,
+      num: 142,
+      size: '12.35/6.49',
+      type: '肺内实性',
+      risk: '17%',
+      soak: 'AAH',
+      text: '于右肺上叶影像可见一结节，大小约 @@@@@@@@@@@@@@',
+      checked: true,
+      active: false,
+    },
+    {
+      id: 15,
+      num: 152,
+      size: '12.35/6.49',
+      type: '肺内实性',
+      risk: '17%',
+      soak: 'AAH',
+      text: '于右肺上叶影像可见一结节，大小约 @@@@@@@@@@@@@@',
+      checked: true,
+      active: false,
+    },
+    {
+      id: 16,
+      num: 162,
+      size: '12.35/6.49',
+      type: '肺内实性',
+      risk: '17%',
+      soak: 'AAH',
+      text: '于右肺上叶影像可见一结节，大小约 @@@@@@@@@@@@@@',
+      checked: true,
+      active: false,
+    },
+    {
+      id: 17,
+      num: 172,
+      size: '12.35/6.49',
+      type: '肺内实性',
+      risk: '17%',
+      soak: 'AAH',
+      text: '于右肺上叶影像可见一结节，大小约 @@@@@@@@@@@@@@',
+      checked: true,
+      active: false,
+    },
+    {
+      id: 18,
+      num: 182,
+      size: '12.35/6.49',
+      type: '肺内实性',
+      risk: '17%',
+      soak: 'AAH',
+      text: '于右肺上叶影像可见一结节，大小约 @@@@@@@@@@@@@@',
+      checked: true,
+      active: false,
+    },
+    {
+      id: 19,
+      num: 192,
+      size: '12.35/6.49',
+      type: '肺内实性',
+      risk: '17%',
+      soak: 'AAH',
+      text: '于右肺上叶影像可见一结节，大小约 @@@@@@@@@@@@@@',
+      checked: true,
+      active: false,
+    },
+    {
+      id: 20,
+      num: 122,
+      size: '12.35/6.49',
+      type: '肺内实性',
+      risk: '17%',
+      soak: 'AAH',
+      text: '于右肺上叶影像可见一结节，大小约 @@@@@@@@@@@@@@',
+      checked: true,
+      active: false,
+    },
   ]
 
   // 多选
@@ -207,6 +291,19 @@ const RightSidePanel = () => {
     })
   }
 
+  // 列表点击事件
+  const handleCheckedListClick = (e, index) => {
+    checkedList.map(item => (item.active = false))
+    checkedList[index].active = true
+    setCheckedList([...checkedList])
+    setTimeout(() => {
+      const element = document.querySelector('#scrollBox .item-active')
+      element && element.scrollIntoView()
+    }, 0)
+    // 将当前项传递给预览组件
+    props.getIndex(index)
+  }
+
   return (
     <div className="middle-side-panel-box">
       <div className="nodule-list-box">
@@ -229,7 +326,7 @@ const RightSidePanel = () => {
           </div>
           <div className="table-content">
             {checkedList.map((item, index) => (
-              <div key={item.id} className={`table-item ${item.active ? 'item-active' : ''}`}>
+              <div key={item.id} className={`table-item ${item.active ? 'item-active' : ''}`} onClick={e => handleCheckedListClick(e, index)}>
                 <div className="icon">{item.id}</div>
                 <Checkbox onChange={e => onChange(e, index)} checked={item.checked}>
                   <div className="num">{item.num}</div>
@@ -268,10 +365,10 @@ const RightSidePanel = () => {
         <div className="info-box">
           <div className="report-box">
             <div className="title">影像所见</div>
-            <div className="report-content">
+            <div id="scrollBox" className="report-content">
               {checkedList.map((item, index) => {
                 return item.checked ? (
-                  <div key={item.id} ref={activeElement} className={`viewer-item ${item.active ? 'item-active' : ''}`}>
+                  <div key={item.id} className={`viewer-item ${item.active ? 'item-active' : ''}`} onClick={e => handleCheckedListClick(e, index)}>
                     {item.text}
                   </div>
                 ) : null
@@ -305,7 +402,9 @@ const RightSidePanel = () => {
                 <div className="suggest-item">于右肺上叶前段影像(IMG19)可见一胸膜实性结节,大小约413mm*3.43m CT值约452HU,体积50mm3。</div>
               </div>
               <div className="save">
-                <Button type="primary" size="small">保存</Button>
+                <Button type="primary" size="small">
+                  保存
+                </Button>
               </div>
             </div>
           </div>
@@ -316,4 +415,4 @@ const RightSidePanel = () => {
   )
 }
 
-export default RightSidePanel
+export default MiddleSidePanel

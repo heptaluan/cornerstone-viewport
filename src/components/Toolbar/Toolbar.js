@@ -8,28 +8,28 @@ const toolbarList = [
     id: 1,
     text: '自动播放',
     icon: <IconFont style={{ fontSize: '24px' }} type="icon-asmkticon0229" />,
-    type: 'auto',
+    type: 'playClip',
     checked: false,
   },
   {
     id: 2,
     text: '垂直翻转',
     icon: <IconFont style={{ fontSize: '20px' }} type="icon-fanzhuan1" />,
-    type: 'vertical',
+    type: 'vflip',
     checked: false,
   },
   {
     id: 3,
     text: '水平翻转',
     icon: <IconFont style={{ fontSize: '20px' }} type="icon-fanzhuan" />,
-    type: 'horizontal',
+    type: 'hflip',
     checked: false,
   },
   {
     id: 4,
     text: '放大',
     icon: <IconFont style={{ fontSize: '26px' }} type="icon-fangda" />,
-    type: 'scale',
+    type: 'Magnify',
     checked: false,
   },
   {
@@ -46,36 +46,36 @@ const toolbarList = [
   {
     id: 7,
     text: '圆形',
-    icon: <IconFont style={{ fontSize: '24px' }} type="icon-juxing" />,
-    type: 'circle',
+    icon: <IconFont style={{ fontSize: '24px' }} type="icon-yuanxing" />,
+    type: 'EllipticalRoi',
     checked: false,
   },
   {
     id: 8,
     text: '矩形',
-    icon: <IconFont style={{ fontSize: '24px' }} type="icon-asmkticon0229" />,
-    type: 'rect',
+    icon: <IconFont style={{ fontSize: '24px' }} type="icon-juxing" />,
+    type: 'RectangleRoi',
     checked: false,
   },
   {
     id: 9,
     text: '角度选择',
     icon: <IconFont style={{ fontSize: '18px' }} type="icon-jiaoduceliang" />,
-    type: 'angle',
+    type: 'Angle',
     checked: false,
   },
   {
     id: 10,
     text: '尺子',
     icon: <IconFont style={{ fontSize: '22px' }} type="icon-02-chizi" />,
-    type: 'ruler',
+    type: 'Length',
     checked: false,
   },
   {
     id: 11,
     text: '清除',
     icon: <IconFont style={{ fontSize: '18px' }} type="icon-qingchuhuancun" />,
-    type: 'clear',
+    type: 'Eraser',
     checked: false,
   },
   {
@@ -91,13 +91,13 @@ const Toolbar = props => {
   const [state, setstate] = useState(toolbarList)
 
   const handleToolbarClick = (e, index, type) => {
-    if (type === 'auto' || type === 'vertical' || type === 'horizontal') {
+    if (type === 'playClip' || type === 'vflip' || type === 'hflip') {
       state[index].checked = !state[index].checked
       setstate([...state])
     } else {
       state[index].checked = !state[index].checked
       state.map(item => {
-        if (item.type !== type && item.type !== 'auto' && item.type !== 'vertical' && item.type !== 'horizontal') item.checked = false
+        if (item.type !== type && item.type !== 'playClip' && item.type !== 'vflip' && item.type !== 'hflip') item.checked = false
       })
       setstate([...state])
     }
