@@ -7,6 +7,7 @@ import MiddleSidePanel from '../../components/MiddleSidePanel/MiddleSidePanel'
 import cornerstone from 'cornerstone-core'
 import cornerstoneTools from 'cornerstone-tools'
 import NoduleInfo from '../../components/common/NoduleInfo/NoduleInfo'
+import MarkNoduleTool from '../../components/common/MarkNoduleTool/MarkNoduleTool'
 
 const Viewer = () => {
   const defaultTools = [
@@ -449,6 +450,10 @@ const Viewer = () => {
         } else {
           cornerstoneTools.stopClip(cornerstoneElement)
         }
+        break
+      case 'MarkNodule':
+        cornerstoneTools.addTool(MarkNoduleTool)
+        cornerstoneTools.setToolActive('MarkNodule', { mouseButtonMask: 1 })
         break
 
       default:

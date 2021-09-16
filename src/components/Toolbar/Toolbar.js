@@ -82,7 +82,7 @@ const toolbarList = [
     id: 12,
     text: '标记',
     icon: <IconFont style={{ fontSize: '20px' }} type="icon-shizi-" />,
-    type: 'mark',
+    type: 'MarkNodule',
     checked: false,
   },
 ]
