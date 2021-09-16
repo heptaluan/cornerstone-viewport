@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import './MiddleSidePanel.scss'
 import IconFont from '../common/IconFont/index'
 import { Popover, Checkbox } from 'antd'
@@ -15,6 +15,7 @@ const MiddleSidePanel = props => {
       risk: '17%',
       soak: 'AAH',
       text: '于右肺上叶影像可见一结节，大小约 1111111111111111111111。',
+      info: '左肺下叶，前内基底段，类型： 磨玻璃，大小： 8.75 * 8.27mm，体积： 288mm³，标准直径： 8.2mm，恶性风险： 21%，浸润分型： AAH，IA概率： 22%，钙化情况： 非钙化结节，中心密度： -400HU，平均密度： -687.89HU，最大密度： -144HU，最小密度： -795HU',
       checked: true,
       active: true,
     },
@@ -26,6 +27,7 @@ const MiddleSidePanel = props => {
       risk: '17%',
       soak: 'AAH',
       text: '于右肺上叶影像可见一结节，大小约 2222222222',
+      info: '左肺下叶，前内基底段，类型： 磨玻璃，大小： 8.75 * 8.27mm，体积： 288mm³，标准直径： 8.2mm，恶性风险： 21%，浸润分型： AAH，IA概率： 22%，钙化情况： 非钙化结节，中心密度： -400HU，平均密度： -687.89HU，最大密度： -144HU，最小密度： -795HU',
       checked: true,
       active: false,
     },
@@ -37,6 +39,7 @@ const MiddleSidePanel = props => {
       risk: '17%',
       soak: 'AAH',
       text: '于右肺上叶影像可见一结节，大小约 3333333',
+      info: '',
       checked: true,
       active: false,
     },
@@ -48,6 +51,7 @@ const MiddleSidePanel = props => {
       risk: '17%',
       soak: 'AAH',
       text: '于右肺上叶影像可见一结节，大小约 4444444。',
+      info: '',
       checked: true,
       active: false,
     },
@@ -59,6 +63,7 @@ const MiddleSidePanel = props => {
       risk: '17%',
       soak: 'AAH',
       text: '于右肺上叶影像可见一结节，大小约 5555555。',
+      info: '',
       checked: true,
       active: false,
     },
@@ -70,6 +75,7 @@ const MiddleSidePanel = props => {
       risk: '17%',
       soak: 'AAH',
       text: '于右肺上叶影像可见一结节，大小约 6666666666',
+      info: '',
       checked: true,
       active: false,
     },
@@ -81,6 +87,7 @@ const MiddleSidePanel = props => {
       risk: '17%',
       soak: 'AAH',
       text: '于右肺上叶影像可见一结节，大小约 7777777777777777',
+      info: '左肺下叶，前内基底段，类型： 磨玻璃，大小： 8.75 * 8.27mm，体积： 288mm³，标准直径： 8.2mm，恶性风险： 21%，浸润分型： AAH，IA概率： 22%，钙化情况： 非钙化结节，中心密度： -400HU，平均密度： -687.89HU，最大密度： -144HU，最小密度： -795HU',
       checked: true,
       active: false,
     },
@@ -92,6 +99,7 @@ const MiddleSidePanel = props => {
       risk: '17%',
       soak: 'AAH',
       text: '于右肺上叶影像可见一结节，大小约 8888888888888888888',
+      info: '',
       checked: true,
       active: false,
     },
@@ -103,6 +111,7 @@ const MiddleSidePanel = props => {
       risk: '17%',
       soak: 'AAH',
       text: '于右肺上叶影像可见一结节，大小约 99999999999999999999',
+      info: '',
       checked: true,
       active: false,
     },
@@ -114,6 +123,7 @@ const MiddleSidePanel = props => {
       risk: '17%',
       soak: 'AAH',
       text: '于右肺上叶影像可见一结节，大小约 ～～～～～～～～～～～～～～',
+      info: '左肺下叶，前内基底段，类型： 磨玻璃，大小： 8.75 * 8.27mm，体积： 288mm³，标准直径： 8.2mm，恶性风险： 21%，浸润分型： AAH，IA概率： 22%，钙化情况： 非钙化结节，中心密度： -400HU，平均密度： -687.89HU，最大密度： -144HU，最小密度： -795HU',
       checked: true,
       active: false,
     },
@@ -125,6 +135,7 @@ const MiddleSidePanel = props => {
       risk: '17%',
       soak: 'AAH',
       text: '于右肺上叶影像可见一结节，大小约 ！！！！！！！！！！！！。',
+      info: '',
       checked: true,
       active: false,
     },
@@ -136,6 +147,7 @@ const MiddleSidePanel = props => {
       risk: '17%',
       soak: 'AAH',
       text: '于右肺上叶影像可见一结节，大小约 @@@@@@@@@@@@@@',
+      info: '',
       checked: true,
       active: false,
     },
@@ -148,6 +160,7 @@ const MiddleSidePanel = props => {
       risk: '17%',
       soak: 'AAH',
       text: '于右肺上叶影像可见一结节，大小约 @@@@@@@@@@@@@@',
+      info: '',
       checked: true,
       active: false,
     },
@@ -159,6 +172,7 @@ const MiddleSidePanel = props => {
       risk: '17%',
       soak: 'AAH',
       text: '于右肺上叶影像可见一结节，大小约 @@@@@@@@@@@@@@',
+      info: '左肺下叶，前内基底段，类型： 磨玻璃，大小： 8.75 * 8.27mm，体积： 288mm³，标准直径： 8.2mm，恶性风险： 21%，浸润分型： AAH，IA概率： 22%，钙化情况： 非钙化结节，中心密度： -400HU，平均密度： -687.89HU，最大密度： -144HU，最小密度： -795HU',
       checked: true,
       active: false,
     },
@@ -170,6 +184,7 @@ const MiddleSidePanel = props => {
       risk: '17%',
       soak: 'AAH',
       text: '于右肺上叶影像可见一结节，大小约 @@@@@@@@@@@@@@',
+      info: '',
       checked: true,
       active: false,
     },
@@ -181,6 +196,7 @@ const MiddleSidePanel = props => {
       risk: '17%',
       soak: 'AAH',
       text: '于右肺上叶影像可见一结节，大小约 @@@@@@@@@@@@@@',
+      info: '',
       checked: true,
       active: false,
     },
@@ -192,6 +208,7 @@ const MiddleSidePanel = props => {
       risk: '17%',
       soak: 'AAH',
       text: '于右肺上叶影像可见一结节，大小约 @@@@@@@@@@@@@@',
+      info: '左肺下叶，前内基底段，类型： 磨玻璃，大小： 8.75 * 8.27mm，体积： 288mm³，标准直径： 8.2mm，恶性风险： 21%，浸润分型： AAH，IA概率： 22%，钙化情况： 非钙化结节，中心密度： -400HU，平均密度： -687.89HU，最大密度： -144HU，最小密度： -795HU',
       checked: true,
       active: false,
     },
@@ -203,6 +220,7 @@ const MiddleSidePanel = props => {
       risk: '17%',
       soak: 'AAH',
       text: '于右肺上叶影像可见一结节，大小约 @@@@@@@@@@@@@@',
+      info: '',
       checked: true,
       active: false,
     },
@@ -214,6 +232,7 @@ const MiddleSidePanel = props => {
       risk: '17%',
       soak: 'AAH',
       text: '于右肺上叶影像可见一结节，大小约 @@@@@@@@@@@@@@',
+      info: '',
       checked: true,
       active: false,
     },
@@ -225,6 +244,7 @@ const MiddleSidePanel = props => {
       risk: '17%',
       soak: 'AAH',
       text: '于右肺上叶影像可见一结节，大小约 @@@@@@@@@@@@@@',
+      info: '左肺下叶，前内基底段，类型： 磨玻璃，大小： 8.75 * 8.27mm，体积： 288mm³，标准直径： 8.2mm，恶性风险： 21%，浸润分型： AAH，IA概率： 22%，钙化情况： 非钙化结节，中心密度： -400HU，平均密度： -687.89HU，最大密度： -144HU，最小密度： -795HU',
       checked: true,
       active: false,
     },
@@ -234,6 +254,17 @@ const MiddleSidePanel = props => {
   const [checkedList, setCheckedList] = useState(noduleList)
   const [indeterminate, setIndeterminate] = useState(false)
   const [checkAll, setCheckAll] = useState(true)
+
+  // 图片详情
+  const [noduleInfo, setNoduleInfo] = useState(null)
+
+  // 监听视图切换
+  useEffect(() => {
+    const info = checkedList[props.inageIndex] ? checkedList[props.inageIndex].info : ''
+    setNoduleInfo(info)
+    handleCheckedListClick(props.inageIndex)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.inageIndex])
 
   const onChange = (e, index) => {
     checkedList[index].checked = e.target.checked
@@ -292,16 +323,20 @@ const MiddleSidePanel = props => {
   }
 
   // 列表点击事件
-  const handleCheckedListClick = (e, index) => {
-    checkedList.map(item => (item.active = false))
-    checkedList[index].active = true
-    setCheckedList([...checkedList])
-    setTimeout(() => {
-      const element = document.querySelector('#scrollBox .item-active')
-      element && element.scrollIntoView()
-    }, 0)
-    // 将当前项传递给预览组件
-    props.getIndex(index)
+  const handleCheckedListClick = index => {
+    if (checkedList[index]) {
+      checkedList.map(item => (item.active = false))
+      checkedList[index].active = true
+      setCheckedList([...checkedList])
+      setTimeout(() => {
+        const tableItemActive = document.querySelector('#tableIItemBox .item-active')
+        const viewerItemActive = document.querySelector('#viewerItemBox .item-active')
+        tableItemActive && tableItemActive.scrollIntoView()
+        viewerItemActive && viewerItemActive.scrollIntoView()
+      }, 0)
+      // 将当前项传递给预览组件
+      props.getCheckedIndex(index)
+    }
   }
 
   return (
@@ -324,9 +359,9 @@ const MiddleSidePanel = props => {
               <IconFont style={{ fontSize: '16px' }} type="icon-leimupinleifenleileibie" />
             </div>
           </div>
-          <div className="table-content">
+          <div id="tableIItemBox" className="table-content">
             {checkedList.map((item, index) => (
-              <div key={item.id} className={`table-item ${item.active ? 'item-active' : ''}`} onClick={e => handleCheckedListClick(e, index)}>
+              <div key={item.id} className={`table-item ${item.active ? 'item-active' : ''}`} onClick={e => handleCheckedListClick(index)}>
                 <div className="icon">{item.id}</div>
                 <Checkbox onChange={e => onChange(e, index)} checked={item.checked}>
                   <div className="num">{item.num}</div>
@@ -365,10 +400,10 @@ const MiddleSidePanel = props => {
         <div className="info-box">
           <div className="report-box">
             <div className="title">影像所见</div>
-            <div id="scrollBox" className="report-content">
+            <div id="viewerItemBox" className="report-content">
               {checkedList.map((item, index) => {
                 return item.checked ? (
-                  <div key={item.id} className={`viewer-item ${item.active ? 'item-active' : ''}`} onClick={e => handleCheckedListClick(e, index)}>
+                  <div key={item.id} className={`viewer-item ${item.active ? 'item-active' : ''}`} onClick={e => handleCheckedListClick(index)}>
                     {item.text}
                   </div>
                 ) : null
@@ -410,7 +445,7 @@ const MiddleSidePanel = props => {
           </div>
         </div>
       </div>
-      <NoduleInfo />
+      <NoduleInfo noduleInfo={noduleInfo} />
     </div>
   )
 }
