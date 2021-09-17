@@ -80,27 +80,7 @@ const MiddleSidePanel = props => {
             <div className="title">影像建议</div>
             <div className="suggest-content">
               <div className="suggest-content-wrap">
-                <div className="suggest-item">于右肺上叶前段影像(IMG19)可见一胸膜实性结节,大小约413mm*3.43m CT值约452HU,体积50mm3。</div>
-                <div className="suggest-item">于右肺上叶前段影像(IMG19)可见一胸膜实性结节,大小约413mm*3.43m CT值约452HU,体积50mm3。</div>
-                <div className="suggest-item">于右肺上叶前段影像(IMG19)可见一胸膜实性结节,大小约413mm*3.43m CT值约452HU,体积50mm3。</div>
-                <div className="suggest-item">于右肺上叶前段影像(IMG19)可见一胸膜实性结节,大小约413mm*3.43m CT值约452HU,体积50mm3。</div>
-                <div className="suggest-item">于右肺上叶前段影像(IMG19)可见一胸膜实性结节,大小约413mm*3.43m CT值约452HU,体积50mm3。</div>
-                <div className="suggest-item">于右肺上叶前段影像(IMG19)可见一胸膜实性结节,大小约413mm*3.43m CT值约452HU,体积50mm3。</div>
-                <div className="suggest-item">于右肺上叶前段影像(IMG19)可见一胸膜实性结节,大小约413mm*3.43m CT值约452HU,体积50mm3。</div>
-                <div className="suggest-item">于右肺上叶前段影像(IMG19)可见一胸膜实性结节,大小约413mm*3.43m CT值约452HU,体积50mm3。</div>
-                <div className="suggest-item">于右肺上叶前段影像(IMG19)可见一胸膜实性结节,大小约413mm*3.43m CT值约452HU,体积50mm3。</div>
-                <div className="suggest-item">于右肺上叶前段影像(IMG19)可见一胸膜实性结节,大小约413mm*3.43m CT值约452HU,体积50mm3。</div>
-                <div className="suggest-item">于右肺上叶前段影像(IMG19)可见一胸膜实性结节,大小约413mm*3.43m CT值约452HU,体积50mm3。</div>
-                <div className="suggest-item">于右肺上叶前段影像(IMG19)可见一胸膜实性结节,大小约413mm*3.43m CT值约452HU,体积50mm3。</div>
-                <div className="suggest-item">于右肺上叶前段影像(IMG19)可见一胸膜实性结节,大小约413mm*3.43m CT值约452HU,体积50mm3。</div>
-                <div className="suggest-item">于右肺上叶前段影像(IMG19)可见一胸膜实性结节,大小约413mm*3.43m CT值约452HU,体积50mm3。</div>
-                <div className="suggest-item">于右肺上叶前段影像(IMG19)可见一胸膜实性结节,大小约413mm*3.43m CT值约452HU,体积50mm3。</div>
-                <div className="suggest-item">于右肺上叶前段影像(IMG19)可见一胸膜实性结节,大小约413mm*3.43m CT值约452HU,体积50mm3。</div>
-                <div className="suggest-item">于右肺上叶前段影像(IMG19)可见一胸膜实性结节,大小约413mm*3.43m CT值约452HU,体积50mm3。</div>
-                <div className="suggest-item">于右肺上叶前段影像(IMG19)可见一胸膜实性结节,大小约413mm*3.43m CT值约452HU,体积50mm3。</div>
-                <div className="suggest-item">于右肺上叶前段影像(IMG19)可见一胸膜实性结节,大小约413mm*3.43m CT值约452HU,体积50mm3。</div>
-                <div className="suggest-item">于右肺上叶前段影像(IMG19)可见一胸膜实性结节,大小约413mm*3.43m CT值约452HU,体积50mm3。</div>
-                <div className="suggest-item">于右肺上叶前段影像(IMG19)可见一胸膜实性结节,大小约413mm*3.43m CT值约452HU,体积50mm3。</div>
+                <div className="suggest-item">建议</div>
               </div>
               <div className="save">
                 <Button type="primary" size="small">
