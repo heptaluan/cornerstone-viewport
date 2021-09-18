@@ -1,7 +1,7 @@
 import React from 'react'
 import './StudyList.scss'
 import { useHistory } from 'react-router-dom'
-import { Table } from 'antd'
+import { Table, Input, Button } from 'antd'
 
 const dataSource = [
   {
@@ -100,8 +100,21 @@ const columns = [
 
 const StudyList = () => {
   const history = useHistory()
+
+  const onSearch = value => console.log(value)
+
   return (
     <div className="study-list-container">
+      <div className="search-box-wrap">
+        <div className="header">
+          <Button type="primary">检索</Button>
+        </div>
+        <div className="search-box">
+          <Input style={{ width: 200 }} placeholder="请输入姓名" />
+          <Input style={{ width: 200 }} placeholder="请输入身份证号" />
+          <Input style={{ width: 200 }} placeholder="请输入年龄" />
+        </div>
+      </div>
       <Table
         dataSource={dataSource}
         columns={columns}

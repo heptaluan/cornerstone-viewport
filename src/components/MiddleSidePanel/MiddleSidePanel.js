@@ -46,7 +46,7 @@ const MiddleSidePanel = props => {
                         <div onClick={e => props.handleHideNodule(e, item.id)} className="button">
                           隐藏结点
                         </div>
-                        <div onClick={e => props.handleHideNodule(e, item.id)} className="button">
+                        <div className="button">
                           标注
                         </div>
                       </div>

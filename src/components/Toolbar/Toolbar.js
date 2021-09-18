@@ -32,13 +32,13 @@ const toolbarList = [
     type: 'Magnify',
     checked: false,
   },
-  {
-    id: 5,
-    text: '聚焦',
-    icon: <IconFont style={{ fontSize: '24px' }} type="icon-jujiao" />,
-    type: 'focus',
-    checked: false,
-  },
+  // {
+  //   id: 5,
+  //   text: '聚焦',
+  //   icon: <IconFont style={{ fontSize: '24px' }} type="icon-jujiao" />,
+  //   type: 'focus',
+  //   checked: false,
+  // },
   {
     id: 6,
     type: 'hr',
