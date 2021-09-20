@@ -10,7 +10,6 @@
 
   .nodule-list-box {
     height: 320px;
-    min-height: 200px;
     max-height: 600px;
     display: flex;
     flex-direction: column;
@@ -60,7 +59,6 @@
         flex-direction: column;
         overflow-x: hidden;
         overflow-y: overlay;
-        min-height: 260px;
 
         .table-item {
           user-select: none;
@@ -181,7 +179,7 @@
             padding: 10px 18px 10px 10px;
             word-break: break-all;
             overflow-y: overlay;
-            min-height: 200px;
+            min-height: 120px;
 
             .suggest-item {
               margin-bottom: 10px;

@@ -22,7 +22,7 @@ const MiddleSidePanel = props => {
             <div className="risk">风险</div>
             <div className="soak">浸润</div>
             <div className="more">
-              <IconFont style={{ fontSize: '16px' }} type="icon-leimupinleifenleileibie" />
+              操作
             </div>
           </div>
           <div id="tableIItemBox" className="table-content">
