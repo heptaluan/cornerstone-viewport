@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import './Viewer.scss'
 import Header from '../../components/Header/Header'
 import LeftSidePanel from '../../components/LeftSidePanel/LeftSidePanel'
@@ -8,8 +8,14 @@ import cornerstone from 'cornerstone-core'
 import cornerstoneTools from 'cornerstone-tools'
 import NoduleInfo from '../../components/common/NoduleInfo/NoduleInfo'
 import MarkNoduleTool from '../../components/common/MarkNoduleTool/MarkNoduleTool'
+import MarkDialog from '../../components/common/MarkDialog/MarkDialog'
 
 const Viewer = () => {
+  // 初始化自定义工具
+  useEffect(() => {
+    cornerstoneTools.addTool(MarkNoduleTool)
+  }, [])
+
   const defaultTools = [
     {
       name: 'Wwwc',
@@ -340,6 +346,8 @@ const Viewer = () => {
     visible: false,
   })
 
+  // ===========================================================
+
   // 单选
   const onCheckChange = (e, index) => {
     noduleList[index].checked = e.target.checked
@@ -434,6 +442,7 @@ const Viewer = () => {
       case 'EllipticalRoi':
       case 'Angle':
       case 'Length':
+      case 'MarkNodule':
         changeToolActive(checked, type)
         break
       case 'hflip':
@@ -451,11 +460,6 @@ const Viewer = () => {
           cornerstoneTools.stopClip(cornerstoneElement)
         }
         break
-      case 'MarkNodule':
-        cornerstoneTools.addTool(MarkNoduleTool)
-        cornerstoneTools.setToolActive('MarkNodule', { mouseButtonMask: 1 })
-        break
-
       default:
         break
     }
@@ -468,6 +472,55 @@ const Viewer = () => {
     })
   }
 
+  // 工具回调
+  const [showMark, setShowMark] = useState(false)
+  const showMarkDialog = (e, cornerstoneElement) => {
+    const tool = cornerstoneTools.getToolState(cornerstoneElement, 'MarkNodule')
+    if (tool) {
+      console.log(tool)
+      setShowMark(true)
+    }
+  }
+
+  // 工具操作函数
+  const handleCloseCallback = () => {
+    setShowMark(false)
+    cornerstoneTools.clearToolState(cornerstoneElement, 'MarkNodule')
+    cornerstone.updateImage(cornerstoneElement)
+  }
+
+  const handleSubmitCallback = value => {
+    const tool = cornerstoneTools.getToolState(cornerstoneElement, 'MarkNodule')
+
+    if (tool) {
+      const toolData = tool.data.pop()
+      const measurementData = {
+        visible: true,
+        active: false,
+        color: undefined,
+        invalidated: true,
+        handles: {
+          start: {
+            x: toolData.handles.start.x,
+            y: toolData.handles.start.y,
+            highlight: true,
+            active: false,
+          },
+          end: {
+            x: toolData.handles.end.x,
+            y: toolData.handles.end.y,
+            highlight: true,
+            active: true,
+          },
+        },
+      }
+      cornerstoneTools.clearToolState(cornerstoneElement, 'MarkNodule')
+      cornerstoneTools.addToolState(cornerstoneElement, 'MarkNodule', measurementData)
+      cornerstone.updateImage(cornerstoneElement)
+      setShowMark(false)
+    }
+  }
+
   // 监听视图变化事件
   const handleElementEnabledEvt = elementEnabledEvt => {
     const cornerstoneElement = elementEnabledEvt.detail.element
@@ -477,6 +530,19 @@ const Viewer = () => {
       const curImageId = imageRenderedEvent.detail.image.imageId
       const index = imagesConfig.findIndex(item => item === curImageId)
       handleCheckedListClick(index)
+    })
+
+    let flag = true
+    cornerstoneElement.addEventListener('cornerstonetoolsmousedown', e => {
+      flag = !flag
+      if (flag) {
+        showMarkDialog(e, cornerstoneElement)
+      }
+    })
+
+    cornerstoneElement.addEventListener('cornerstonetoolsmouseup', e => {
+      flag = true
+      showMarkDialog(e, cornerstoneElement)
     })
   }
 
@@ -499,6 +565,7 @@ const Viewer = () => {
         <ViewerMain handleToolbarClick={handleToolbarClick} handleElementEnabledEvt={handleElementEnabledEvt} toolsConfig={toolsConfig} imagesConfig={imagesConfig} />
       </div>
       <NoduleInfo noduleInfo={noduleInfo} />
+      {showMark ? <MarkDialog handleCloseCallback={handleCloseCallback} handleSubmitCallback={handleSubmitCallback} /> : null}
     </div>
   )
 }

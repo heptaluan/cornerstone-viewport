@@ -27,6 +27,7 @@ function rotatePoint(point, center, angle) {
   const angleRadians = angle * (Math.PI / 180) // Convert to radians
   const rotatedX = Math.cos(angleRadians) * (point.x - center.x) - Math.sin(angleRadians) * (point.y - center.y) + center.x
   const rotatedY = Math.sin(angleRadians) * (point.x - center.x) + Math.cos(angleRadians) * (point.y - center.y) + center.y
+
   return {
     x: rotatedX,
     y: rotatedY,

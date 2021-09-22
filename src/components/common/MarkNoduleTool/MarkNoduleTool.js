@@ -1,12 +1,6 @@
 import csTools from 'cornerstone-tools'
 import toolColors from './toolColors.js'
-
-import {
-  getToolState,
-  getNewContext,
-  draw,
-  drawRect
-} from './util'
+import { getToolState, getNewContext, draw, drawRect } from './util'
 
 /**
 
