@@ -2,16 +2,6 @@ import csTools from 'cornerstone-tools'
 import toolColors from './toolColors.js'
 import { getToolState, getNewContext, draw, drawRect } from './util'
 
-/**
-
-标记 ==》 弹窗 ==》 取消 ==》 清除所有标记
-
-标记 ==》 弹窗 ==》 确定 ==》 提交数据 ==》 存储坐标 ==》 删除所有标记 ==》 利用得到的坐标画一个矩形
-
-视图切换的时候 ==》 利用列表当中获取到的数据 ==》 画对应坐标的矩形 ==》 将当前矩形设为选中
-
-*/
-
 const BaseAnnotationTool = csTools.importInternal('base/BaseAnnotationTool')
 
 export default class MarkNoduleTool extends BaseAnnotationTool {

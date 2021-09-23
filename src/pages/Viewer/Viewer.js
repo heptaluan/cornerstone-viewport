@@ -541,6 +541,7 @@ const Viewer = () => {
     })
 
     cornerstoneElement.addEventListener('cornerstonetoolsmouseup', e => {
+      console.log(cornerstoneTools.getElementToolStateManager(e.srcElement))
       flag = true
       showMarkDialog(e, cornerstoneElement)
     })
