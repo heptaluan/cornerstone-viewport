@@ -21,9 +21,7 @@ const MiddleSidePanel = props => {
             <div className="type">类型</div>
             <div className="risk">风险</div>
             <div className="soak">浸润</div>
-            <div className="more">
-              操作
-            </div>
+            <div className="action">操作</div>
           </div>
           <div id="tableIItemBox" className="table-content">
             {props.noduleList?.map((item, index) => (
@@ -36,7 +34,7 @@ const MiddleSidePanel = props => {
                 <div className="type">{item.type}</div>
                 <div className="risk">{item.risk}</div>
                 <div className="soak">{item.soak}</div>
-                <div className="more">
+                <div className="action">
                   <Popover
                     placement="left"
                     visible={props.showPopover.index === index && props.showPopover.visible}
