@@ -114,7 +114,7 @@ const Toolbar = props => {
             <div></div>
           </li>
         ) : (
-          <li key={item.id} className={item.checked ? 'active' : ''} onClick={e => handleToolbarClick(e, index, item.type)}>
+          <li id={(item.type === 'MarkNodule' && item.checked) ? 'mark' : null} key={item.id} className={item.checked ? 'active' : ''} onClick={e => handleToolbarClick(e, index, item.type)}>
             <Tooltip title={item.text}>{item.icon}</Tooltip>
           </li>
         )

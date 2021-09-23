@@ -328,7 +328,12 @@ const Viewer = () => {
   // 初始化
   const [toolsConfig, setToolsConfig] = useState(defaultTools)
   const [imagesConfig, setImagesConfig] = useState(defaultImages)
-  const [noduleList, setNoduleList] = useState(defaultNoduleList)
+  const [noduleList, setNoduleList] = useState([])
+
+  useEffect(() => {
+    setNoduleList(defaultNoduleList)
+    setNoduleInfo(defaultNoduleList[0].info)
+  }, [])
 
   // 多选
   const [indeterminate, setIndeterminate] = useState(false)
@@ -476,7 +481,8 @@ const Viewer = () => {
   const [showMark, setShowMark] = useState(false)
   const showMarkDialog = (e, cornerstoneElement) => {
     const tool = cornerstoneTools.getToolState(cornerstoneElement, 'MarkNodule')
-    if (tool) {
+    let mark = document.getElementById('mark')
+    if (tool && mark && mark.classList.contains('active')) {
       console.log(tool)
       setShowMark(true)
     }
@@ -484,9 +490,11 @@ const Viewer = () => {
 
   // 工具操作函数
   const handleCloseCallback = () => {
-    setShowMark(false)
-    cornerstoneTools.clearToolState(cornerstoneElement, 'MarkNodule')
+    const tool = cornerstoneTools.getToolState(cornerstoneElement, 'MarkNodule')
+    const toolData = tool.data.pop()
+    cornerstoneTools.removeToolState(cornerstoneElement, 'MarkNodule', toolData)
     cornerstone.updateImage(cornerstoneElement)
+    setShowMark(false)
   }
 
   const handleSubmitCallback = value => {
@@ -541,7 +549,6 @@ const Viewer = () => {
     })
 
     cornerstoneElement.addEventListener('cornerstonetoolsmouseup', e => {
-      console.log(cornerstoneTools.getElementToolStateManager(e.srcElement))
       flag = true
       showMarkDialog(e, cornerstoneElement)
     })
