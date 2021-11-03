@@ -9,6 +9,12 @@
     .list-box {
       border: 1px solid #ccc;
       overflow: overlay;
+
+      .empty {
+        padding: 15px;
+        text-align: center;
+        font-size: 14px;
+      }
     }
 
     .list-item {

@@ -9,6 +9,8 @@ import cornerstoneTools from 'cornerstone-tools'
 import NoduleInfo from '../../components/common/NoduleInfo/NoduleInfo'
 import MarkNoduleTool from '../../components/common/MarkNoduleTool/MarkNoduleTool'
 import MarkDialog from '../../components/common/MarkDialog/MarkDialog'
+import { getMedicalList, getImageList, getPatientsList } from '../../api/api'
+import { getURLParameters } from '../../util/index'
 
 const Viewer = () => {
   // 初始化自定义工具
@@ -327,13 +329,55 @@ const Viewer = () => {
 
   // 初始化
   const [toolsConfig, setToolsConfig] = useState(defaultTools)
-  const [imagesConfig, setImagesConfig] = useState(defaultImages)
+  const [imagesConfig, setImagesConfig] = useState([])
+  const [sequenceListData, setLeftSidePanelData] = useState([])
   const [noduleList, setNoduleList] = useState([])
+  const [patients, setPatients] = useState([])
 
+  // 初始化表格数据
   useEffect(() => {
-    setNoduleList(defaultNoduleList)
-    setNoduleInfo(defaultNoduleList[0].info)
+    // setNoduleList(defaultNoduleList)
+    // setNoduleInfo(defaultNoduleList[0].info)
+    setNoduleList([])
+    setNoduleInfo('')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  // 初始化序列和图片列表
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await getMedicalList(
+        getURLParameters(window.location.href).patient
+      )
+      // console.log(result)
+      if (result.data.code === 200 && result.data.result.length > 0) {
+        setLeftSidePanelData(result.data.result)
+        const instanceUid = result.data.result[0].instanceUid
+        const res = await getImageList(instanceUid)
+        setImageList(res)
+        // setImagesConfig(defaultImages)
+      }
+    }
+    fetchData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // 初始化病人信息
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await getPatientsList(
+        getURLParameters(window.location.href).patient
+      )
+      // console.log(result)
+      if (result.data.code === 200 && result.data.result.records.length > 0) {
+        setPatients(result.data.result.records[0])
+        console.log(result.data.result.records[0])
+      }
+    }
+    fetchData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  
 
   // 多选
   const [indeterminate, setIndeterminate] = useState(false)
@@ -350,6 +394,26 @@ const Viewer = () => {
     index: 0,
     visible: false,
   })
+
+  // ===========================================================
+
+  // 设置图片列表
+  const setImageList = res => {
+    if (res.data.code === 200 && res.data.result.records.length > 0) {
+      const imageList = []
+      res.data.result.records.forEach(item => {
+        imageList.push(`wadouri:${item.ossUrl}`)
+      })
+      // console.log(imageList)
+      setImagesConfig(imageList)
+    }
+  }
+
+  // 序列点击事件
+  const handleSequenceListClick = async instanceUid => {
+    const res = await getImageList(instanceUid)
+    setImageList(res)
+  }
 
   // ===========================================================
 
@@ -400,7 +464,9 @@ const Viewer = () => {
       setNoduleList([...noduleList])
       setTimeout(() => {
         // const tableItemActive = document.querySelector('#tableIItemBox .item-active')
-        const viewerItemActive = document.querySelector('#viewerItemBox .item-active')
+        const viewerItemActive = document.querySelector(
+          '#viewerItemBox .item-active'
+        )
         // tableItemActive && tableItemActive.scrollIntoView()
         viewerItemActive && viewerItemActive.scrollIntoView()
       }, 0)
@@ -440,6 +506,7 @@ const Viewer = () => {
 
   const handleToolbarClick = (type, checked) => {
     let viewport = cornerstone.getViewport(cornerstoneElement)
+    debugger
     switch (type) {
       case 'Magnify':
       case 'RectangleRoi':
@@ -523,7 +590,11 @@ const Viewer = () => {
         },
       }
       cornerstoneTools.clearToolState(cornerstoneElement, 'MarkNodule')
-      cornerstoneTools.addToolState(cornerstoneElement, 'MarkNodule', measurementData)
+      cornerstoneTools.addToolState(
+        cornerstoneElement,
+        'MarkNodule',
+        measurementData
+      )
       cornerstone.updateImage(cornerstoneElement)
       setShowMark(false)
     }
@@ -534,11 +605,14 @@ const Viewer = () => {
     const cornerstoneElement = elementEnabledEvt.detail.element
     setCornerstoneElement(cornerstoneElement)
 
-    cornerstoneElement.addEventListener('cornerstoneimagerendered', imageRenderedEvent => {
-      const curImageId = imageRenderedEvent.detail.image.imageId
-      const index = imagesConfig.findIndex(item => item === curImageId)
-      handleCheckedListClick(index)
-    })
+    cornerstoneElement.addEventListener(
+      'cornerstoneimagerendered',
+      imageRenderedEvent => {
+        const curImageId = imageRenderedEvent.detail.image.imageId
+        const index = imagesConfig.findIndex(item => item === curImageId)
+        handleCheckedListClick(index)
+      }
+    )
 
     let flag = true
     cornerstoneElement.addEventListener('cornerstonetoolsmousedown', e => {
@@ -556,9 +630,12 @@ const Viewer = () => {
 
   return (
     <div className="viewer-box">
-      <Header />
+      <Header data={patients} />
       <div className="viewer-center-box">
-        <LeftSidePanel />
+        <LeftSidePanel
+          data={sequenceListData}
+          handleSequenceListClick={handleSequenceListClick}
+        />
         <MiddleSidePanel
           handleVisibleChange={handleVisibleChange}
           handleCheckedListClick={handleCheckedListClick}
@@ -570,10 +647,20 @@ const Viewer = () => {
           checkAll={checkAll}
           noduleList={noduleList}
         />
-        <ViewerMain handleToolbarClick={handleToolbarClick} handleElementEnabledEvt={handleElementEnabledEvt} toolsConfig={toolsConfig} imagesConfig={imagesConfig} />
+        <ViewerMain
+          handleToolbarClick={handleToolbarClick}
+          handleElementEnabledEvt={handleElementEnabledEvt}
+          toolsConfig={toolsConfig}
+          imagesConfig={imagesConfig}
+        />
       </div>
       <NoduleInfo noduleInfo={noduleInfo} />
-      {showMark ? <MarkDialog handleCloseCallback={handleCloseCallback} handleSubmitCallback={handleSubmitCallback} /> : null}
+      {showMark ? (
+        <MarkDialog
+          handleCloseCallback={handleCloseCallback}
+          handleSubmitCallback={handleSubmitCallback}
+        />
+      ) : null}
     </div>
   )
 }
