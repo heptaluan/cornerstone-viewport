@@ -3,7 +3,7 @@ import { getURLParameters } from '../util/index'
 
 axios.defaults.headers.common['X-Access-Token'] = getURLParameters(window.location.href).token
 
-const basicUrl = `http://192.168.1.204:9999`
+const basicUrl = getURLParameters(window.location.href).url
 
 // 获取序列列表
 export const getMedicalList = (id) => axios.get(`${basicUrl}/tailai-multiomics/multiomics/medicalImage/series/list?patient=${id}`)

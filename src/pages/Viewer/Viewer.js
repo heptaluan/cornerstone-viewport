@@ -329,7 +329,7 @@ const Viewer = () => {
 
   // 初始化
   const [toolsConfig, setToolsConfig] = useState(defaultTools)
-  const [imagesConfig, setImagesConfig] = useState([])
+  const [imagesConfig, setImagesConfig] = useState(defaultImages)
   const [sequenceListData, setLeftSidePanelData] = useState([])
   const [noduleList, setNoduleList] = useState([])
   const [patients, setPatients] = useState([])
@@ -355,7 +355,6 @@ const Viewer = () => {
         const instanceUid = result.data.result[0].instanceUid
         const res = await getImageList(instanceUid)
         setImageList(res)
-        // setImagesConfig(defaultImages)
       }
     }
     fetchData()
@@ -377,7 +376,6 @@ const Viewer = () => {
     fetchData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-  
 
   // 多选
   const [indeterminate, setIndeterminate] = useState(false)
@@ -506,7 +504,6 @@ const Viewer = () => {
 
   const handleToolbarClick = (type, checked) => {
     let viewport = cornerstone.getViewport(cornerstoneElement)
-    debugger
     switch (type) {
       case 'Magnify':
       case 'RectangleRoi':
@@ -614,17 +611,10 @@ const Viewer = () => {
       }
     )
 
-    let flag = true
-    cornerstoneElement.addEventListener('cornerstonetoolsmousedown', e => {
-      flag = !flag
-      if (flag) {
+    cornerstoneElement.addEventListener('cornerstonetoolsmouseup', e => {
+      if (localStorage.getItem('active') === 'true') {
         showMarkDialog(e, cornerstoneElement)
       }
-    })
-
-    cornerstoneElement.addEventListener('cornerstonetoolsmouseup', e => {
-      flag = true
-      showMarkDialog(e, cornerstoneElement)
     })
   }
 
