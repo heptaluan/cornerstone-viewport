@@ -52,35 +52,36 @@ const Viewer = () => {
   ]
 
   const defaultImages = [
-    'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I710',
-    'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I720',
-    'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I730',
-    'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I740',
-    'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I750',
-    'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I760',
-    'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I770',
-    'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I780',
-    'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I790',
-    'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I800',
-    'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I810',
-    'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I820',
-    'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I830',
-    'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I840',
-    'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I850',
-    'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I860',
-    'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I870',
-    'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I880',
-    'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I890',
-    'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I900',
-    'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I910',
-    'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I920',
-    'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I930',
-    'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I940',
-    'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I950',
-    'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I960',
-    'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I970',
-    'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I980',
-    'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I990',
+    'wadouri:http://im.ananpan.com/omics/image/CHENSHUHUA/20211230/IMG00230.dcm'
+    // 'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I710',
+    // 'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I720',
+    // 'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I730',
+    // 'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I740',
+    // 'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I750',
+    // 'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I760',
+    // 'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I770',
+    // 'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I780',
+    // 'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I790',
+    // 'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I800',
+    // 'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I810',
+    // 'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I820',
+    // 'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I830',
+    // 'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I840',
+    // 'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I850',
+    // 'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I860',
+    // 'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I870',
+    // 'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I880',
+    // 'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I890',
+    // 'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I900',
+    // 'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I910',
+    // 'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I920',
+    // 'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I930',
+    // 'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I940',
+    // 'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I950',
+    // 'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I960',
+    // 'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I970',
+    // 'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I980',
+    // 'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I990',
   ]
 
   const defaultNoduleList = [
@@ -347,7 +348,8 @@ const Viewer = () => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await getMedicalList(
-        getURLParameters(window.location.href).patient
+        getURLParameters(window.location.href).resource,
+        getURLParameters(window.location.href).type
       )
       // console.log(result)
       if (result.data.code === 200 && result.data.result.length > 0) {
@@ -365,7 +367,7 @@ const Viewer = () => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await getPatientsList(
-        getURLParameters(window.location.href).patient
+        getURLParameters(window.location.href).resource
       )
       // console.log(result)
       if (result.data.code === 200 && result.data.result.records.length > 0) {
@@ -397,9 +399,9 @@ const Viewer = () => {
 
   // 设置图片列表
   const setImageList = res => {
-    if (res.data.code === 200 && res.data.result.records.length > 0) {
+    if (res.data.code === 200 && res.data.result.length > 0) {
       const imageList = []
-      res.data.result.records.forEach(item => {
+      res.data.result.forEach(item => {
         imageList.push(`wadouri:${item.ossUrl}`)
       })
       // console.log(imageList)
@@ -618,9 +620,67 @@ const Viewer = () => {
     })
   }
 
+  // ===========================================================
+
+  // 导出图片
+  const exportImages = () => {
+    saveAs(cornerstoneElement, 'viewportImage.png')
+  }
+
+  const saveAs = (element, filename, mimetype = 'image/png') => {
+    // Setting the default value for mimetype to image/png
+    const canvas = element.querySelector('canvas')
+
+    // If we are using IE, use canvas.msToBlob
+    if (canvas.msToBlob) {
+      const blob = canvas.msToBlob()
+
+      return window.navigator.msSaveBlob(blob, filename)
+    }
+
+    // Thanks to Ken Fyrstenber
+    // http://stackoverflow.com/questions/18480474/how-to-save-an-image-from-canvas
+    const lnk = document.createElement('a')
+
+    // The key here is to set the download attribute of the a tag
+    lnk.download = filename
+
+    // Convert canvas content to data-uri for link. When download
+    // Attribute is set the content pointed to by link will be
+    // Pushed as 'download' in HTML5 capable browsers
+    lnk.href = canvas.toDataURL(mimetype, 1)
+
+    // Create a 'fake' click-event to trigger the download
+    if (document.createEvent) {
+      const e = document.createEvent('MouseEvents')
+
+      e.initMouseEvent(
+        'click',
+        true,
+        true,
+        window,
+        0,
+        0,
+        0,
+        0,
+        0,
+        false,
+        false,
+        false,
+        false,
+        0,
+        null
+      )
+
+      lnk.dispatchEvent(e)
+    } else if (lnk.fireEvent) {
+      lnk.fireEvent('onclick')
+    }
+  }
+
   return (
     <div className="viewer-box">
-      <Header data={patients} />
+      <Header data={patients} exportImages={exportImages} />
       <div className="viewer-center-box">
         <LeftSidePanel
           data={sequenceListData}
