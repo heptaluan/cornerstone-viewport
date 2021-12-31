@@ -52,7 +52,7 @@ const Viewer = () => {
   ]
 
   const defaultImages = [
-    'wadouri:http://im.ananpan.com/omics/image/CHENSHUHUA/20211230/IMG00230.dcm'
+    'wadouri:http://im.ananpan.com/omics/image/CHENSHUHUA/20211230/IMG00230.dcm',
     // 'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I710',
     // 'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I720',
     // 'wadouri:http://192.168.1.158:9000/medical.case.data/陈芳春/image/I730',
@@ -367,12 +367,12 @@ const Viewer = () => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await getPatientsList(
-        getURLParameters(window.location.href).resource
+        getURLParameters(window.location.href).resource,
+        getURLParameters(window.location.href).type
       )
       // console.log(result)
-      if (result.data.code === 200 && result.data.result.records.length > 0) {
-        setPatients(result.data.result.records[0])
-        console.log(result.data.result.records[0])
+      if (result.data.code === 200) {
+        setPatients(result.data.result)
       }
     }
     fetchData()
@@ -464,9 +464,7 @@ const Viewer = () => {
       setNoduleList([...noduleList])
       setTimeout(() => {
         // const tableItemActive = document.querySelector('#tableIItemBox .item-active')
-        const viewerItemActive = document.querySelector(
-          '#viewerItemBox .item-active'
-        )
+        const viewerItemActive = document.querySelector('#viewerItemBox .item-active')
         // tableItemActive && tableItemActive.scrollIntoView()
         viewerItemActive && viewerItemActive.scrollIntoView()
       }, 0)
@@ -589,11 +587,7 @@ const Viewer = () => {
         },
       }
       cornerstoneTools.clearToolState(cornerstoneElement, 'MarkNodule')
-      cornerstoneTools.addToolState(
-        cornerstoneElement,
-        'MarkNodule',
-        measurementData
-      )
+      cornerstoneTools.addToolState(cornerstoneElement, 'MarkNodule', measurementData)
       cornerstone.updateImage(cornerstoneElement)
       setShowMark(false)
     }
@@ -604,14 +598,11 @@ const Viewer = () => {
     const cornerstoneElement = elementEnabledEvt.detail.element
     setCornerstoneElement(cornerstoneElement)
 
-    cornerstoneElement.addEventListener(
-      'cornerstoneimagerendered',
-      imageRenderedEvent => {
-        const curImageId = imageRenderedEvent.detail.image.imageId
-        const index = imagesConfig.findIndex(item => item === curImageId)
-        handleCheckedListClick(index)
-      }
-    )
+    cornerstoneElement.addEventListener('cornerstoneimagerendered', imageRenderedEvent => {
+      const curImageId = imageRenderedEvent.detail.image.imageId
+      const index = imagesConfig.findIndex(item => item === curImageId)
+      handleCheckedListClick(index)
+    })
 
     cornerstoneElement.addEventListener('cornerstonetoolsmouseup', e => {
       if (localStorage.getItem('active') === 'true') {
@@ -654,23 +645,7 @@ const Viewer = () => {
     if (document.createEvent) {
       const e = document.createEvent('MouseEvents')
 
-      e.initMouseEvent(
-        'click',
-        true,
-        true,
-        window,
-        0,
-        0,
-        0,
-        0,
-        0,
-        false,
-        false,
-        false,
-        false,
-        0,
-        null
-      )
+      e.initMouseEvent('click', true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
 
       lnk.dispatchEvent(e)
     } else if (lnk.fireEvent) {
@@ -682,10 +657,7 @@ const Viewer = () => {
     <div className="viewer-box">
       <Header data={patients} exportImages={exportImages} />
       <div className="viewer-center-box">
-        <LeftSidePanel
-          data={sequenceListData}
-          handleSequenceListClick={handleSequenceListClick}
-        />
+        <LeftSidePanel data={sequenceListData} handleSequenceListClick={handleSequenceListClick} />
         <MiddleSidePanel
           handleVisibleChange={handleVisibleChange}
           handleCheckedListClick={handleCheckedListClick}
@@ -706,10 +678,7 @@ const Viewer = () => {
       </div>
       <NoduleInfo noduleInfo={noduleInfo} />
       {showMark ? (
-        <MarkDialog
-          handleCloseCallback={handleCloseCallback}
-          handleSubmitCallback={handleSubmitCallback}
-        />
+        <MarkDialog handleCloseCallback={handleCloseCallback} handleSubmitCallback={handleSubmitCallback} />
       ) : null}
     </div>
   )

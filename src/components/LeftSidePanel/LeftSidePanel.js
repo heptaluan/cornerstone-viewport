@@ -10,11 +10,7 @@ const LeftSidePanel = props => {
             <div className="empty">暂无序列</div>
           ) : (
             props.data?.map((item, index) => (
-              <div
-                key={item.id}
-                className="list-item"
-                onClick={e => props.handleSequenceListClick(item.instanceUid)}
-              >
+              <div key={item.id} className="list-item" onClick={e => props.handleSequenceListClick(item.instanceUid)}>
                 <div className="num">序列：{item.seriesDescription}</div>
               </div>
             ))
