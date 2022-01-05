@@ -598,6 +598,12 @@ const Viewer = () => {
     const cornerstoneElement = elementEnabledEvt.detail.element
     setCornerstoneElement(cornerstoneElement)
 
+    cornerstoneElement.addEventListener('cornerstonenewimage', newImage => {
+      setTimeout(() => {
+        windowChange(cornerstoneElement, newImage.detail.image, 2)
+      }, 0)
+    })
+
     cornerstoneElement.addEventListener('cornerstoneimagerendered', imageRenderedEvent => {
       const curImageId = imageRenderedEvent.detail.image.imageId
       const index = imagesConfig.findIndex(item => item === curImageId)
@@ -609,6 +615,39 @@ const Viewer = () => {
         showMarkDialog(e, cornerstoneElement)
       }
     })
+  }
+
+  // 调整窗宽窗位
+  const windowChange = (element, image, index) => {
+    /*
+     * index=1 ww:default, wl:default
+     * index=2 ww:1500, wl:-450
+     * index=3 ww:250, wl:30
+     * index=4 ww:1000, wl:250
+     * index=5 ww:300, wl:40
+     */
+
+    const viewportDefault = cornerstone.getDefaultViewportForImage(element, image)
+    const viewport = cornerstone.getViewport(element)
+    viewport.voiLUT = undefined
+
+    if (index === 1) {
+      viewport.voi.windowWidth = viewportDefault.voi.windowWidth
+      viewport.voi.windowCenter = viewportDefault.voi.windowCenter
+    } else if (index === 2) {
+      viewport.voi.windowWidth = 1500
+      viewport.voi.windowCenter = -450
+    } else if (index === 3) {
+      viewport.voi.windowWidth = 250
+      viewport.voi.windowCenter = 30
+    } else if (index === 4) {
+      viewport.voi.windowWidth = 1000
+      viewport.voi.windowCenter = 250
+    } else if (index === 5) {
+      viewport.voi.windowWidth = 300
+      viewport.voi.windowCenter = 40
+    }
+    cornerstone.setViewport(element, viewport)
   }
 
   // ===========================================================
