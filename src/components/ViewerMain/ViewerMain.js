@@ -11,7 +11,7 @@ const ViewerMain = props => {
     <div className="viewer-main-box">
       {props.imagesConfig.length <= 2 ? (
         <div className="error-tips">
-          <span>加载失败，请刷新后重新尝试！</span>
+          <span>正在加载...</span>
         </div>
       ) : null}
       {props.imagesConfig.length === 0 ? null : <Toolbar handleToolbarClick={props.handleToolbarClick} />}

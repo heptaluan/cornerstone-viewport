@@ -602,12 +602,34 @@ const Viewer = () => {
       setTimeout(() => {
         windowChange(cornerstoneElement, newImage.detail.image, 2)
       }, 0)
+      // const viewportOptions = {
+      //   voi: {
+      //     windowWidth: 1500,
+      //     windowCenter: -400
+      //   }
+      // }
+      // cornerstone.displayImage(cornerstoneElement, newImage.detail.image, viewportOptions)
+    })
+
+    cornerstoneElement.addEventListener('cornerstoneimageloaded', newImage => {
+      // console.log(1)
     })
 
     cornerstoneElement.addEventListener('cornerstoneimagerendered', imageRenderedEvent => {
       const curImageId = imageRenderedEvent.detail.image.imageId
       const index = imagesConfig.findIndex(item => item === curImageId)
       handleCheckedListClick(index)
+
+      // const viewportOptions = {
+      //   scale: 1.0,
+      //   voi: {
+      //     windowWidth: 1500,
+      //     windowCenter: -400
+      //   },
+      //   invert: false,
+      //   pixelReplication: false
+      // }
+      // cornerstone.displayImage(cornerstoneElement, imageRenderedEvent.detail.image, viewportOptions)
     })
 
     cornerstoneElement.addEventListener('cornerstonetoolsmouseup', e => {
@@ -636,7 +658,7 @@ const Viewer = () => {
       viewport.voi.windowCenter = viewportDefault.voi.windowCenter
     } else if (index === 2) {
       viewport.voi.windowWidth = 1500
-      viewport.voi.windowCenter = -450
+      viewport.voi.windowCenter = -400
     } else if (index === 3) {
       viewport.voi.windowWidth = 250
       viewport.voi.windowCenter = 30
@@ -647,6 +669,7 @@ const Viewer = () => {
       viewport.voi.windowWidth = 300
       viewport.voi.windowCenter = 40
     }
+    
     cornerstone.setViewport(element, viewport)
   }
 
