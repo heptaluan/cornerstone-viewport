@@ -11,6 +11,7 @@ import MarkNoduleTool from '../../components/common/MarkNoduleTool/MarkNoduleToo
 import MarkDialog from '../../components/common/MarkDialog/MarkDialog'
 import { getMedicalList, getImageList, getPatientsList } from '../../api/api'
 import { getURLParameters } from '../../util/index'
+import { data } from './data'
 
 const Viewer = () => {
   // 初始化自定义工具
@@ -337,9 +338,10 @@ const Viewer = () => {
 
   // 初始化表格数据
   useEffect(() => {
-    // setNoduleList(defaultNoduleList)
+    console.log(data)
+    setNoduleList(defaultNoduleList)
     // setNoduleInfo(defaultNoduleList[0].info)
-    setNoduleList([])
+    // setNoduleList([])
     setNoduleInfo('')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -396,6 +398,34 @@ const Viewer = () => {
   })
 
   // ===========================================================
+
+  // 添加结节标注
+  const addNodeTool = (cornerstoneElement) => {
+    const measurementData = {
+      visible: true,
+      active: true,
+      color: undefined,
+      invalidated: true,
+      handles: {
+        start: {
+          x: 293,
+          y: 229,
+          highlight: true,
+          active: true,
+        },
+        end: {
+          x: 218,
+          y: 181,
+          highlight: true,
+          active: true,
+        },
+      },
+    }
+    console.log(111)
+    cornerstoneTools.clearToolState(cornerstoneElement, 'MarkNodule')
+    cornerstoneTools.addToolState(cornerstoneElement, 'MarkNodule', measurementData)
+    cornerstone.updateImage(cornerstoneElement)
+  }
 
   // 设置图片列表
   const setImageList = res => {
@@ -601,6 +631,7 @@ const Viewer = () => {
     cornerstoneElement.addEventListener('cornerstonenewimage', newImage => {
       setTimeout(() => {
         windowChange(cornerstoneElement, newImage.detail.image, 2)
+        // addNodeTool(cornerstoneElement)
       }, 0)
       // const viewportOptions = {
       //   voi: {
