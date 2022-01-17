@@ -400,7 +400,7 @@ const Viewer = () => {
   // ===========================================================
 
   // 添加结节标注
-  const addNodeTool = (cornerstoneElement) => {
+  const addNodeTool = cornerstoneElement => {
     const measurementData = {
       visible: true,
       active: true,
@@ -502,7 +502,7 @@ const Viewer = () => {
 
     // 设置当前视图选中项
     if (cornerstoneElement) {
-      changeActiveImage(index)
+      changeActiveImage(index, cornerstoneElement)
     }
   }
 
@@ -565,9 +565,14 @@ const Viewer = () => {
   }
 
   // 切换当前视图
-  const changeActiveImage = index => {
+  const changeActiveImage = (index, cornerstoneElement) => {
     cornerstone.loadImage(imagesConfig[index]).then(image => {
       cornerstone.displayImage(cornerstoneElement, image)
+      cornerstoneTools.addStackStateManager(cornerstoneElement, ['stack'])
+      cornerstoneTools.addToolState(cornerstoneElement, 'stack', {
+        currentImageIdIndex: index,
+        imageIds: imagesConfig,
+      })
     })
   }
 
@@ -629,9 +634,11 @@ const Viewer = () => {
     setCornerstoneElement(cornerstoneElement)
 
     cornerstoneElement.addEventListener('cornerstonenewimage', newImage => {
+      cornerstoneTools.setToolActive('MarkNodule', { mouseButtonMask: 1 })
       setTimeout(() => {
         windowChange(cornerstoneElement, newImage.detail.image, 2)
-        // addNodeTool(cornerstoneElement)
+        addNodeTool(cornerstoneElement)
+        cornerstoneTools.setToolActive('Wwwc', { mouseButtonMask: 1 })
       }, 0)
       // const viewportOptions = {
       //   voi: {
@@ -700,7 +707,7 @@ const Viewer = () => {
       viewport.voi.windowWidth = 300
       viewport.voi.windowCenter = 40
     }
-    
+
     cornerstone.setViewport(element, viewport)
   }
 
