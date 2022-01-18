@@ -6,7 +6,7 @@ import { getURLParameters } from '../util/index'
 
 const basicUrl = 'http://139.196.114.118:9999'
 axios.defaults.headers.common['X-Access-Token'] =
-  'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDIxMDU1MzEsInVzZXJuYW1lIjoidGFpbGFpIn0.yOHLNTv4MKIH8JJqE5JrArYLYQZGXxbduwNXmSPr4OI'
+  'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2NDI0MzQ2NzQsInVzZXJuYW1lIjoidGFpbGFpIn0.dHFzywaPfhqHyIvIRiSaW__mTqBHFCQ3Q7HARdcf9p4'
 
 // 获取序列列表（0-详情，1-订单跳转）
 export const getMedicalList = (id, type) =>

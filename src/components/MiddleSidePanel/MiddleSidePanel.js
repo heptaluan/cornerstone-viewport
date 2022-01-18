@@ -20,12 +20,12 @@ const MiddleSidePanel = props => {
             <div className="size">大小</div>
             <div className="type">类型</div>
             <div className="risk">风险</div>
-            <div className="soak">浸润</div>
+            {/* <div className="soak">浸润</div> */}
             <div className="action">操作</div>
           </div>
           <div id="tableIItemBox" className="table-content">
             {props.noduleList?.map((item, index) => (
-              <div key={item.id} className={`table-item ${item.active ? 'item-active' : ''}`} onClick={e => props.handleCheckedListClick(index)}>
+              <div key={item.id} className={`table-item ${item.active ? 'item-active' : ''}`} onClick={e => props.handleCheckedListClick(item.num)}>
                 <div className="icon">{item.id}</div>
                 <Checkbox onChange={e => props.onCheckChange(e, index)} checked={item.checked}>
                   <div className="num">{item.num}</div>
@@ -33,7 +33,7 @@ const MiddleSidePanel = props => {
                 <div className="size">{item.size}</div>
                 <div className="type">{item.type}</div>
                 <div className="risk">{item.risk}</div>
-                <div className="soak">{item.soak}</div>
+                {/* <div className="soak">{item.soak}</div> */}
                 <div className="action">
                   <Popover
                     placement="left"
@@ -67,7 +67,7 @@ const MiddleSidePanel = props => {
             <div id="viewerItemBox" className="report-content">
               {props.noduleList?.map((item, index) => {
                 return item.checked ? (
-                  <div key={item.id} className={`viewer-item ${item.active ? 'item-active' : ''}`} onClick={e => props.handleCheckedListClick(index)}>
+                  <div key={item.id} className={`viewer-item ${item.active ? 'item-active' : ''}`} onClick={e => props.handleCheckedListClick(item.num)}>
                     {item.text}
                   </div>
                 ) : null

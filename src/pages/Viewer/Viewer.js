@@ -14,11 +14,6 @@ import { getURLParameters } from '../../util/index'
 import { data } from './data'
 
 const Viewer = () => {
-  // 初始化自定义工具
-  useEffect(() => {
-    cornerstoneTools.addTool(MarkNoduleTool)
-  }, [])
-
   const defaultTools = [
     {
       name: 'Wwwc',
@@ -331,20 +326,10 @@ const Viewer = () => {
 
   // 初始化
   const [toolsConfig, setToolsConfig] = useState(defaultTools)
-  const [imagesConfig, setImagesConfig] = useState(defaultImages)
+  const [imagesConfig, setImagesConfig] = useState([])
   const [sequenceListData, setLeftSidePanelData] = useState([])
   const [noduleList, setNoduleList] = useState([])
   const [patients, setPatients] = useState([])
-
-  // 初始化表格数据
-  useEffect(() => {
-    console.log(data)
-    setNoduleList(defaultNoduleList)
-    // setNoduleInfo(defaultNoduleList[0].info)
-    // setNoduleList([])
-    setNoduleInfo('')
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   // 初始化序列和图片列表
   useEffect(() => {
@@ -362,6 +347,16 @@ const Viewer = () => {
       }
     }
     fetchData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // 初始化表格数据
+  useEffect(() => {
+    formatNodeData(data)
+    // setNoduleList(defaultNoduleList)
+    // setNoduleInfo(defaultNoduleList[0].info)
+    // setNoduleList([])
+    setNoduleInfo('')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -566,11 +561,11 @@ const Viewer = () => {
 
   // 切换当前视图
   const changeActiveImage = (index, cornerstoneElement) => {
-    cornerstone.loadImage(imagesConfig[index]).then(image => {
+    cornerstone.loadImage(imagesConfig[index - 1]).then(image => {
       cornerstone.displayImage(cornerstoneElement, image)
       cornerstoneTools.addStackStateManager(cornerstoneElement, ['stack'])
       cornerstoneTools.addToolState(cornerstoneElement, 'stack', {
-        currentImageIdIndex: index,
+        currentImageIdIndex: Number(index - 1),
         imageIds: imagesConfig,
       })
     })
@@ -632,6 +627,7 @@ const Viewer = () => {
   const handleElementEnabledEvt = elementEnabledEvt => {
     const cornerstoneElement = elementEnabledEvt.detail.element
     setCornerstoneElement(cornerstoneElement)
+    cornerstoneTools.addTool(MarkNoduleTool)
 
     cornerstoneElement.addEventListener('cornerstonenewimage', newImage => {
       cornerstoneTools.setToolActive('MarkNodule', { mouseButtonMask: 1 })
@@ -750,6 +746,44 @@ const Viewer = () => {
       lnk.dispatchEvent(e)
     } else if (lnk.fireEvent) {
       lnk.fireEvent('onclick')
+    }
+  }
+
+  const compare = p => {
+    return function (m, n) {
+      return m[p] - n[p]
+    }
+  }
+
+  const formatNodeData = data => {
+    console.log(data)
+    const nodulesList = []
+    let index = 0
+    if (data.code === 10000) {
+      const res = data.detectionResult.nodulesList
+      for (let i = 0; i < res.length; i++) {
+        for (let j = 0; j < res[i].rois.length; j++) {
+          const rois = res[i].rois[j]
+          nodulesList.push({
+            id: index,
+            num: rois.key,
+            size: res[i].diameter,
+            type: res[i].featureLabel.value,
+            risk: (res[i].scrynMaligant * 100).toFixed(0) + '%',
+            soak: '',
+            text: '123',
+            info: '',
+            checked: true,
+            active: false,
+          })
+          index++
+        }
+      }
+      console.log(nodulesList)
+      setNoduleList(nodulesList)
+    } else {
+      setNoduleList([])
+      console.log(`数据加载失败`)
     }
   }
 
