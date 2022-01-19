@@ -476,15 +476,15 @@ const Viewer = () => {
 
   // 弹出层按钮事件
   const handleHideNodule = (e, id) => {
-    noduleList.splice(
-      noduleList.findIndex(item => item.id === id),
-      1
-    )
-    setNoduleList([...noduleList])
-    setShowPopover({
-      visible: false,
-      index: 0,
-    })
+    // noduleList.splice(
+    //   noduleList.findIndex(item => item.id === id),
+    //   1
+    // )
+    // setNoduleList([...noduleList])
+    // setShowPopover({
+    //   visible: false,
+    //   index: 0,
+    // })
   }
 
   // 列表点击事件
@@ -528,6 +528,16 @@ const Viewer = () => {
   const changeToolActive = (checked, type) => {
     if (checked) {
       cornerstoneTools.setToolActive(type, { mouseButtonMask: 1 })
+    } else {
+      cornerstoneTools.setToolActive('Wwwc', { mouseButtonMask: 1 })
+    }
+  }
+
+  // 设定当前选中工具状态
+  const setActiveToolState = () => {
+    const activeTool = document.querySelector('.tool-bar-box .active')
+    if (activeTool) {
+      cornerstoneTools.setToolActive(activeTool.dataset.type, { mouseButtonMask: 1 })
     } else {
       cornerstoneTools.setToolActive('Wwwc', { mouseButtonMask: 1 })
     }
@@ -643,7 +653,7 @@ const Viewer = () => {
       setTimeout(() => {
         windowChange(cornerstoneElement, newImage.detail.image, 2)
         addNodeTool(cornerstoneElement, index)
-        cornerstoneTools.setToolActive('Wwwc', { mouseButtonMask: 1 })
+        setActiveToolState()
       }, 0)
     })
 
@@ -667,11 +677,11 @@ const Viewer = () => {
   // 调整窗宽窗位
   const windowChange = (element, image, index) => {
     /*
-     * index=1 ww:default, wl:default
-     * index=2 ww:1500, wl:-450
-     * index=3 ww:250, wl:30
-     * index=4 ww:1000, wl:250
-     * index=5 ww:300, wl:40
+     * index = 1，ww: default, wl: default
+     * index = 2，ww: 1500, wl: -450
+     * index = 3，ww: 250, wl: 30
+     * index = 4，ww: 1000, wl: 250
+     * index = 5，ww: 300, wl: 40
      */
 
     const viewportDefault = cornerstone.getDefaultViewportForImage(element, image)
@@ -706,34 +716,20 @@ const Viewer = () => {
   }
 
   const saveAs = (element, filename, mimetype = 'image/png') => {
-    // Setting the default value for mimetype to image/png
     const canvas = element.querySelector('canvas')
-
-    // If we are using IE, use canvas.msToBlob
     if (canvas.msToBlob) {
       const blob = canvas.msToBlob()
 
       return window.navigator.msSaveBlob(blob, filename)
     }
 
-    // Thanks to Ken Fyrstenber
-    // http://stackoverflow.com/questions/18480474/how-to-save-an-image-from-canvas
     const lnk = document.createElement('a')
-
-    // The key here is to set the download attribute of the a tag
     lnk.download = filename
-
-    // Convert canvas content to data-uri for link. When download
-    // Attribute is set the content pointed to by link will be
-    // Pushed as 'download' in HTML5 capable browsers
     lnk.href = canvas.toDataURL(mimetype, 1)
 
-    // Create a 'fake' click-event to trigger the download
     if (document.createEvent) {
       const e = document.createEvent('MouseEvents')
-
       e.initMouseEvent('click', true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
-
       lnk.dispatchEvent(e)
     } else if (lnk.fireEvent) {
       lnk.fireEvent('onclick')
