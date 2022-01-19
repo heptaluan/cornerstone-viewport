@@ -15,7 +15,8 @@ export default function initCornerstone() {
   cornerstoneTools.init()
 
   // Preferences
-  const fontFamily = 'Work Sans, Roboto, OpenSans, HelveticaNeue-Light, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif'
+  const fontFamily =
+    'Work Sans, Roboto, OpenSans, HelveticaNeue-Light, Helvetica Neue Light, Helvetica Neue, Helvetica, Arial, Lucida Grande, sans-serif'
   cornerstoneTools.textStyle.setFont(`16px ${fontFamily}`)
   cornerstoneTools.toolStyle.setToolWidth(2)
   cornerstoneTools.toolColors.setToolColor('rgb(255, 255, 0)')
