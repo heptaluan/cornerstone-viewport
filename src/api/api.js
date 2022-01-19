@@ -14,7 +14,9 @@ export const getMedicalList = (id, type) =>
 
 // 获取图片详情
 export const getImageList = id =>
-  axios.get(`${basicUrl}/tailai-multiomics/multiomics/medicalImage/instance/list?seriesInstanceUid=${id}&column=instanceNumber&order=asc`)
+  axios.get(
+    `${basicUrl}/tailai-multiomics/multiomics/medicalImage/instance/list?seriesInstanceUid=${id}&column=instanceNumber&order=asc`
+  )
 
 // 获取病人信息
 export const getPatientsList = (id, type) =>

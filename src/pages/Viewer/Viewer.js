@@ -327,9 +327,11 @@ const Viewer = () => {
   // 初始化
   const [toolsConfig, setToolsConfig] = useState(defaultTools)
   const [imagesConfig, setImagesConfig] = useState([])
+  const [taskLength, setTaskLength] = useState(0)
   const [sequenceListData, setLeftSidePanelData] = useState([])
   const [noduleList, setNoduleList] = useState([])
   const [patients, setPatients] = useState([])
+  const [noduleMapList, setNoduleMapList] = useState([])
 
   // 初始化序列和图片列表
   useEffect(() => {
@@ -395,31 +397,33 @@ const Viewer = () => {
   // ===========================================================
 
   // 添加结节标注
-  const addNodeTool = cornerstoneElement => {
-    const measurementData = {
-      visible: true,
-      active: true,
-      color: undefined,
-      invalidated: true,
-      handles: {
-        start: {
-          x: 293,
-          y: 229,
-          highlight: true,
-          active: true,
+  const addNodeTool = (cornerstoneElement, index = 0) => {
+    const item = noduleMapList.find(item => item.index === index + 1)
+    if (item) {
+      const measurementData = {
+        visible: true,
+        active: true,
+        color: undefined,
+        invalidated: true,
+        handles: {
+          start: {
+            x: item.startX,
+            y: item.startY,
+            highlight: true,
+            active: true,
+          },
+          end: {
+            x: item.endX,
+            y: item.endX,
+            highlight: true,
+            active: true,
+          },
         },
-        end: {
-          x: 218,
-          y: 181,
-          highlight: true,
-          active: true,
-        },
-      },
+      }
+      cornerstoneTools.clearToolState(cornerstoneElement, 'MarkNodule')
+      cornerstoneTools.addToolState(cornerstoneElement, 'MarkNodule', measurementData)
+      cornerstone.updateImage(cornerstoneElement)
     }
-    console.log(111)
-    cornerstoneTools.clearToolState(cornerstoneElement, 'MarkNodule')
-    cornerstoneTools.addToolState(cornerstoneElement, 'MarkNodule', measurementData)
-    cornerstone.updateImage(cornerstoneElement)
   }
 
   // 设置图片列表
@@ -431,6 +435,9 @@ const Viewer = () => {
       })
       // console.log(imageList)
       setImagesConfig(imageList)
+
+      // 缓存图片
+      loadAndCacheImage(cornerstone, imageList)
     }
   }
 
@@ -482,15 +489,14 @@ const Viewer = () => {
 
   // 列表点击事件
   const handleCheckedListClick = index => {
-    if (noduleList[index]) {
+    const item = noduleList.find(item => Number(item.num) === index + 1)
+    if (item) {
       noduleList.map(item => (item.active = false))
-      noduleList[index].active = true
-      setNoduleInfo(noduleList[index].info)
+      item.active = true
+      setNoduleInfo(item.info)
       setNoduleList([...noduleList])
       setTimeout(() => {
-        // const tableItemActive = document.querySelector('#tableIItemBox .item-active')
         const viewerItemActive = document.querySelector('#viewerItemBox .item-active')
-        // tableItemActive && tableItemActive.scrollIntoView()
         viewerItemActive && viewerItemActive.scrollIntoView()
       }, 0)
     }
@@ -630,40 +636,25 @@ const Viewer = () => {
     cornerstoneTools.addTool(MarkNoduleTool)
 
     cornerstoneElement.addEventListener('cornerstonenewimage', newImage => {
+      const curImageId = newImage.detail.image.imageId
+      const index = imagesConfig.findIndex(item => item === curImageId)
+
       cornerstoneTools.setToolActive('MarkNodule', { mouseButtonMask: 1 })
       setTimeout(() => {
         windowChange(cornerstoneElement, newImage.detail.image, 2)
-        addNodeTool(cornerstoneElement)
+        addNodeTool(cornerstoneElement, index)
         cornerstoneTools.setToolActive('Wwwc', { mouseButtonMask: 1 })
       }, 0)
-      // const viewportOptions = {
-      //   voi: {
-      //     windowWidth: 1500,
-      //     windowCenter: -400
-      //   }
-      // }
-      // cornerstone.displayImage(cornerstoneElement, newImage.detail.image, viewportOptions)
     })
 
-    cornerstoneElement.addEventListener('cornerstoneimageloaded', newImage => {
-      // console.log(1)
-    })
+    // cornerstoneElement.addEventListener('cornerstoneimageloaded', newImage => {
+    //   console.log(1)
+    // })
 
     cornerstoneElement.addEventListener('cornerstoneimagerendered', imageRenderedEvent => {
       const curImageId = imageRenderedEvent.detail.image.imageId
       const index = imagesConfig.findIndex(item => item === curImageId)
       handleCheckedListClick(index)
-
-      // const viewportOptions = {
-      //   scale: 1.0,
-      //   voi: {
-      //     windowWidth: 1500,
-      //     windowCenter: -400
-      //   },
-      //   invert: false,
-      //   pixelReplication: false
-      // }
-      // cornerstone.displayImage(cornerstoneElement, imageRenderedEvent.detail.image, viewportOptions)
     })
 
     cornerstoneElement.addEventListener('cornerstonetoolsmouseup', e => {
@@ -749,46 +740,70 @@ const Viewer = () => {
     }
   }
 
-  const compare = p => {
-    return function (m, n) {
-      return m[p] - n[p]
-    }
-  }
-
+  // 格式化结点数据
   const formatNodeData = data => {
     console.log(data)
     const nodulesList = []
+    const nodulesMapList = []
     let index = 0
     if (data.code === 10000) {
       const res = data.detectionResult.nodulesList
       for (let i = 0; i < res.length; i++) {
+        nodulesList.push({
+          id: index,
+          num: res[i].rois[0].key,
+          size: res[i].diameter,
+          type: res[i].featureLabel.value,
+          risk: (res[i].scrynMaligant * 100).toFixed(0) + '%',
+          soak: '',
+          text: `于${res[i].lobe.lungLocation}${res[i].lobe.lobeLocation}影像可见一结节，大小约 ${res[i].diameter}。`,
+          info: '',
+          checked: true,
+          active: false,
+        })
+        index++
+      }
+
+      for (let i = 0; i < res.length; i++) {
         for (let j = 0; j < res[i].rois.length; j++) {
           const rois = res[i].rois[j]
-          nodulesList.push({
-            id: index,
-            num: rois.key,
-            size: res[i].diameter,
-            type: res[i].featureLabel.value,
-            risk: (res[i].scrynMaligant * 100).toFixed(0) + '%',
-            soak: '',
-            text: '123',
-            info: '',
-            checked: true,
-            active: false,
+          nodulesMapList.push({
+            index: Number(rois.key),
+            startX: rois.bbox[1],
+            startY: rois.bbox[0],
+            endX: rois.bbox[3],
+            endY: rois.bbox[2],
           })
-          index++
         }
       }
-      console.log(nodulesList)
+
+      console.log(nodulesMapList)
       setNoduleList(nodulesList)
+      setNoduleMapList(nodulesMapList)
     } else {
       setNoduleList([])
       console.log(`数据加载失败`)
     }
   }
 
+  // 缓存图片请求池
+  const loadAndCacheImage = (cornerstone, imageList) => {
+    const taskPool = []
+    for (let i = 0; i < imageList.length; i++) {
+      cornerstone.loadAndCacheImage(imageList[i]).then(image => {
+        taskPool.push(image.imageId)
+        setTaskLength(taskPool.length)
+      })
+    }
+  }
+
   return (
     <div className="viewer-box">
+      {taskLength !== imagesConfig.length ? (
+        <div className="load-image-mask">
+          <span>图片序列加载中 {taskLength > 0 ? <em>，正在加载第 {taskLength} 张</em> : null}</span>
+        </div>
+      ) : null}
       <Header data={patients} exportImages={exportImages} />
       <div className="viewer-center-box">
         <LeftSidePanel data={sequenceListData} handleSequenceListClick={handleSequenceListClick} />

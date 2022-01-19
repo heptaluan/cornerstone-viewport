@@ -25,7 +25,11 @@ const MiddleSidePanel = props => {
           </div>
           <div id="tableIItemBox" className="table-content">
             {props.noduleList?.map((item, index) => (
-              <div key={item.id} className={`table-item ${item.active ? 'item-active' : ''}`} onClick={e => props.handleCheckedListClick(item.num)}>
+              <div
+                key={item.id}
+                className={`table-item ${item.active ? 'item-active' : ''}`}
+                onClick={e => props.handleCheckedListClick(item.num)}
+              >
                 <div className="icon">{item.id}</div>
                 <Checkbox onChange={e => props.onCheckChange(e, index)} checked={item.checked}>
                   <div className="num">{item.num}</div>
@@ -44,9 +48,7 @@ const MiddleSidePanel = props => {
                         <div onClick={e => props.handleHideNodule(e, item.id)} className="button">
                           隐藏结点
                         </div>
-                        <div className="button">
-                          标注
-                        </div>
+                        <div className="button">标注</div>
                       </div>
                     }
                     trigger="click"
@@ -67,7 +69,11 @@ const MiddleSidePanel = props => {
             <div id="viewerItemBox" className="report-content">
               {props.noduleList?.map((item, index) => {
                 return item.checked ? (
-                  <div key={item.id} className={`viewer-item ${item.active ? 'item-active' : ''}`} onClick={e => props.handleCheckedListClick(item.num)}>
+                  <div
+                    key={item.id}
+                    className={`viewer-item ${item.active ? 'item-active' : ''}`}
+                    onClick={e => props.handleCheckedListClick(item.num)}
+                  >
                     {item.text}
                   </div>
                 ) : null

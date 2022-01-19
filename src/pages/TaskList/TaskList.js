@@ -43,7 +43,7 @@ const dataSource = [
     user: '张三',
     time: '2012-12-12',
     content: '删除列表一',
-    mmark: ''
+    mmark: '',
   },
   {
     id: 2,
@@ -51,7 +51,7 @@ const dataSource = [
     user: '李四',
     time: '2012-12-12',
     content: '删除列表二',
-    mmark: ''
+    mmark: '',
   },
   {
     id: 3,
@@ -59,7 +59,7 @@ const dataSource = [
     user: '王五',
     time: '2012-12-12',
     content: '删除列表三',
-    mmark: ''
+    mmark: '',
   },
 ]
 
