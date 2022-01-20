@@ -433,11 +433,14 @@ const Viewer = () => {
       res.data.result.forEach(item => {
         imageList.push(`wadouri:${item.ossUrl}`)
       })
+      
       // console.log(imageList)
       setImagesConfig(imageList)
 
       // 缓存图片
-      loadAndCacheImage(cornerstone, imageList)
+      if (imageList.length > 0) {
+        loadAndCacheImage(cornerstone, imageList)
+      }
     }
   }
 
