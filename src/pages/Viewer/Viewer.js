@@ -414,12 +414,13 @@ const Viewer = () => {
           },
           end: {
             x: item.endX,
-            y: item.endX,
+            y: item.endY,
             highlight: true,
             active: true,
           },
         },
       }
+      console.log(measurementData.handles)
       cornerstoneTools.clearToolState(cornerstoneElement, 'MarkNodule')
       cornerstoneTools.addToolState(cornerstoneElement, 'MarkNodule', measurementData)
       cornerstone.updateImage(cornerstoneElement)
@@ -438,9 +439,9 @@ const Viewer = () => {
       setImagesConfig(imageList)
 
       // 缓存图片
-      if (imageList.length > 0) {
-        loadAndCacheImage(cornerstone, imageList)
-      }
+      // if (imageList.length > 0) {
+      //   loadAndCacheImage(cornerstone, imageList)
+      // }
     }
   }
 
@@ -798,11 +799,11 @@ const Viewer = () => {
 
   return (
     <div className="viewer-box">
-      {taskLength !== imagesConfig.length ? (
+      {/* {taskLength !== imagesConfig.length ? (
         <div className="load-image-mask">
           <span>图片序列加载中 {taskLength > 0 ? <em>，正在加载第 {taskLength} 张</em> : null}</span>
         </div>
-      ) : null}
+      ) : null} */}
       <Header data={patients} exportImages={exportImages} />
       <div className="viewer-center-box">
         <LeftSidePanel data={sequenceListData} handleSequenceListClick={handleSequenceListClick} />
