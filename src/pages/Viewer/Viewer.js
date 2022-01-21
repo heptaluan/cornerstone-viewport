@@ -420,7 +420,6 @@ const Viewer = () => {
           },
         },
       }
-      console.log(measurementData.handles)
       cornerstoneTools.clearToolState(cornerstoneElement, 'MarkNodule')
       cornerstoneTools.addToolState(cornerstoneElement, 'MarkNodule', measurementData)
       cornerstone.updateImage(cornerstoneElement)
@@ -499,10 +498,10 @@ const Viewer = () => {
       item.active = true
       setNoduleInfo(item.info)
       setNoduleList([...noduleList])
-      setTimeout(() => {
-        const viewerItemActive = document.querySelector('#viewerItemBox .item-active')
-        viewerItemActive && viewerItemActive.scrollIntoView()
-      }, 0)
+      // setTimeout(() => {
+      //   const viewerItemActive = document.querySelector('#viewerItemBox .item-active')
+      //   viewerItemActive && viewerItemActive.scrollIntoView()
+      // }, 0)
     }
 
     // 设置当前视图选中项
@@ -768,6 +767,7 @@ const Viewer = () => {
         for (let j = 0; j < res[i].rois.length; j++) {
           const rois = res[i].rois[j]
           nodulesMapList.push({
+            noduleName: res[i].noduleName,
             index: Number(rois.key),
             startX: rois.bbox[1],
             startY: rois.bbox[0],
