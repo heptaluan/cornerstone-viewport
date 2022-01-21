@@ -398,30 +398,35 @@ const Viewer = () => {
 
   // 添加结节标注
   const addNodeTool = (cornerstoneElement, index = 0) => {
-    const item = noduleMapList.find(item => item.index === index + 1)
-    if (item) {
-      const measurementData = {
-        visible: true,
-        active: true,
-        color: undefined,
-        invalidated: true,
-        handles: {
-          start: {
-            x: item.startX,
-            y: item.startY,
-            highlight: true,
-            active: true,
-          },
-          end: {
-            x: item.endX,
-            y: item.endY,
-            highlight: true,
-            active: true,
-          },
-        },
-      }
+    const item = noduleMapList.filter(item => item.index === index + 1)
+    if (item.length >= 1) {
+      
       cornerstoneTools.clearToolState(cornerstoneElement, 'MarkNodule')
-      cornerstoneTools.addToolState(cornerstoneElement, 'MarkNodule', measurementData)
+
+      for (let i = 0; i < item.length; i++) {
+        let measurementData = {
+          visible: true,
+          active: true,
+          color: undefined,
+          invalidated: true,
+          handles: {
+            start: {
+              x: item[i].startX,
+              y: item[i].startY,
+              highlight: true,
+              active: true,
+            },
+            end: {
+              x: item[i].endX,
+              y: item[i].endY,
+              highlight: true,
+              active: true,
+            },
+          },
+        }
+        cornerstoneTools.addToolState(cornerstoneElement, 'MarkNodule', measurementData)
+      }
+
       cornerstone.updateImage(cornerstoneElement)
     }
   }
@@ -433,7 +438,7 @@ const Viewer = () => {
       res.data.result.forEach(item => {
         imageList.push(`wadouri:${item.ossUrl}`)
       })
-      
+
       // console.log(imageList)
       setImagesConfig(imageList)
 
