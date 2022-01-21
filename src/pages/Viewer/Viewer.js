@@ -503,10 +503,10 @@ const Viewer = () => {
       item.active = true
       setNoduleInfo(item.info)
       setNoduleList([...noduleList])
-      // setTimeout(() => {
-      //   const viewerItemActive = document.querySelector('#viewerItemBox .item-active')
-      //   viewerItemActive && viewerItemActive.scrollIntoView()
-      // }, 0)
+      setTimeout(() => {
+        const viewerItemActive = document.querySelector('#viewerItemBox .item-active')
+        viewerItemActive && viewerItemActive.scrollIntoView()
+      }, 0)
     }
 
     // 设置当前视图选中项
