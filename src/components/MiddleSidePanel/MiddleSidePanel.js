@@ -14,9 +14,12 @@ const MiddleSidePanel = props => {
             <div className="icon">
               <IconFont style={{ fontSize: '16px' }} type="icon-leimupinleifenleileibie" />
             </div>
-            <Checkbox indeterminate={props.indeterminate} onChange={props.onCheckAllChange} checked={props.checkAll}>
+            {/* <Checkbox disabled indeterminate={props.indeterminate} onChange={props.onCheckAllChange} checked={props.checkAll}>
               <div className="num">中心帧</div>
-            </Checkbox>
+            </Checkbox> */}
+            <Checkbox disabled checked={true}>
+              <div className="num">中心帧</div>
+            </Checkbox> 
             <div className="size">大小</div>
             <div className="type">类型</div>
             <div className="risk">风险</div>

@@ -399,34 +399,60 @@ const Viewer = () => {
   // 添加结节标注
   const addNodeTool = (cornerstoneElement, index = 0) => {
     const item = noduleMapList.filter(item => item.index === index + 1)
+    const checkItme = noduleList.find(item => item.checked === true)
+
     if (item.length >= 1) {
-      
       cornerstoneTools.clearToolState(cornerstoneElement, 'MarkNodule')
-
-      for (let i = 0; i < item.length; i++) {
-        let measurementData = {
-          visible: true,
-          active: true,
-          color: undefined,
-          invalidated: true,
-          handles: {
-            start: {
-              x: item[i].startX,
-              y: item[i].startY,
-              highlight: true,
-              active: true,
+      if (checkItme) {
+        const checkNode = item.filter(item => item.noduleName === checkItme.noduleName)
+        for (let i = 0; i < item.length; i++) {
+          const measurementData = {
+            visible: true,
+            active: true,
+            color: item[i].noduleName === (checkNode[0] && checkNode[0].noduleName) ? undefined : 'blue',
+            invalidated: true,
+            handles: {
+              start: {
+                x: item[i].startX,
+                y: item[i].startY,
+                highlight: true,
+                active: true,
+              },
+              end: {
+                x: item[i].endX,
+                y: item[i].endY,
+                highlight: true,
+                active: true,
+              },
             },
-            end: {
-              x: item[i].endX,
-              y: item[i].endY,
-              highlight: true,
-              active: true,
-            },
-          },
+          }
+          cornerstoneTools.addToolState(cornerstoneElement, 'MarkNodule', measurementData)
         }
-        cornerstoneTools.addToolState(cornerstoneElement, 'MarkNodule', measurementData)
+      } else {
+        for (let i = 0; i < item.length; i++) {
+          const measurementData = {
+            visible: true,
+            active: true,
+            color: 'blue',
+            invalidated: true,
+            handles: {
+              start: {
+                x: item[i].startX,
+                y: item[i].startY,
+                highlight: true,
+                active: true,
+              },
+              end: {
+                x: item[i].endX,
+                y: item[i].endY,
+                highlight: true,
+                active: true,
+              },
+            },
+          }
+          cornerstoneTools.addToolState(cornerstoneElement, 'MarkNodule', measurementData)
+        }
       }
-
       cornerstone.updateImage(cornerstoneElement)
     }
   }
@@ -459,6 +485,7 @@ const Viewer = () => {
 
   // 单选
   const onCheckChange = (e, index) => {
+    noduleList.map(item => (item.checked = false))
     noduleList[index].checked = e.target.checked
     setNoduleList([...noduleList])
     if (noduleList.every(item => item.checked === true)) {
@@ -762,8 +789,9 @@ const Viewer = () => {
           soak: '',
           text: `于${res[i].lobe.lungLocation}${res[i].lobe.lobeLocation}影像可见一结节，大小约 ${res[i].diameter}。`,
           info: '',
-          checked: true,
+          checked: false,
           active: false,
+          noduleName: res[i].noduleName,
         })
         index++
       }
