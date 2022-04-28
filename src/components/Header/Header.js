@@ -6,14 +6,24 @@ const Header = props => {
   return (
     <div className="header-box">
       <div className="user-content">
-        姓名：{props.data.patientName} 患者编号：{props.data.archiveJobId_dictText} 性别：
-        {props.data.patientSex_dictText} 年龄：{props.data.patientAge} 检查日期：{props.data.studyTime}{' '}
+        {props.data?.patientName ? (
+          <div className="patient-detail">
+            <span>姓名：{props.data.patientName}，</span>
+            <span>性别：{props.data.gender_dictText}，</span>
+            <span>年龄：{props.data.age}，</span>
+            <span>病例编号：{props.data.medicalCaseCode}，</span>
+            <span>patientId：{props.data.patientId}，</span>
+            <span>检查日期：{props.data.createTime}</span>
+          </div>
+        ) : null}
       </div>
-      <div className="export">
-        <Button type="primary" onClick={props.exportImages}>
-          导出报告
-        </Button>
-      </div>
+      {props.pageType === 'review' ? (
+        <div className="export">
+          <Button disabled={props.pageState === 'admin'} type="primary" onClick={props.handleShowModal}>
+            提交审核结果
+          </Button>
+        </div>
+      ) : null}
     </div>
   )
 }
